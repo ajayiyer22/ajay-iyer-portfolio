@@ -1,0 +1,8 @@
+{
+  "trajectory": 3,
+  "simulation_seconds": 154.0,
+  "samples": 7701,
+  "position_rmse_m": 1.010350601735269,
+  "max_position_error_m": 5.047493126157331,
+  "max_abs_steering_deg": 22.623733620730736
+}

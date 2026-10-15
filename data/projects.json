@@ -1,0 +1,549 @@
+[
+  {
+    "slug": "welding-automation",
+    "title": "Robotic welding automation",
+    "category": "automation",
+    "eyebrow": "Equipment integration · Motion planning",
+    "organization": "Texas A&M University",
+    "role": "Graduate Research Assistant · Advisor: Dr. Prabhakar Pagilla",
+    "date": "Aug 2024 – Aug 2025",
+    "status": "Hardware & software integration",
+    "summary": "A UR10e and Miller pulsed-MIG welding platform that connects workpiece registration, weld-path planning, and coordinated robot execution through a Python/ROS interface.",
+    "stack": [
+      "Python",
+      "ROS / MoveIt",
+      "PyQt5",
+      "UR10e",
+      "Arduino",
+      "CAD registration"
+    ],
+    "visual": "welding",
+    "challenge": "Automating a weld requires more than moving a torch between two points. The CAD model has to agree with the physical workpiece, the torch has to maintain its orientation and travel speed, and the welding equipment has to be triggered in step with the robot's motion.",
+    "contributions": [
+      [
+        "Equipment and operator interface",
+        "Built a Python/PyQt5/ROS interface for weld setup and execution. Integrated Arduino PWM and relay control with the Miller welder for arc voltage, wire feed, and weld triggering, and brought registration and RViz into the operator workflow."
+      ],
+      [
+        "CAD-to-robot registration",
+        "Used three torch-probed reference points with Kabsch alignment and ICP refinement to establish the workpiece-to-robot transform. This connected CAD geometry to the physical setup without external metrology."
+      ],
+      [
+        "Path generation and robot motion",
+        "Generated weld paths from STL edges and surface normals with a 45° torch tilt. Developed the planning workflow around inverse kinematics, wrist-limit handling, and joint continuity. The GUI execution pipeline uses MoveIt planning, angle unwrapping, and distance-based trajectory timing to sequence approach, welding, retreat, and reorientation."
+      ],
+      [
+        "Execution and motion checks",
+        "Coordinated weld triggering with robot execution and added end-effector logging, joint-continuity checks, and checks for abrupt joint motion and jerk. The operator interface connects planned motion to the robot and welding equipment."
+      ],
+      [
+        "Closed-loop weld-pool regulation",
+        "Integrated Optris PI 05M infrared monitoring and used bead-height and calibrated temperature feedback for closed-loop regulation of torch travel speed and arc voltage. This connects the measured weld-pool state to the robot-motion and welding-parameter commands."
+      ]
+    ],
+    "outcome": "The project brought equipment control, CAD registration, trajectory generation, execution monitoring, and closed-loop weld-pool regulation into one workflow. The original report captures the system architecture and sensing setup; the closed-loop work was completed subsequently.",
+    "steps": [
+      "Probe reference points",
+      "Register CAD",
+      "Generate torch path",
+      "Solve & time motion",
+      "Execute & monitor"
+    ],
+    "video": "1VoMwmjuKN7CYOpscUP3xUdMnmsUKmSLf",
+    "videoTitle": "Robotic welding demonstration",
+    "resources": [
+      [
+        "Read welding project report · PDF",
+        "assets/documents/welding-automation-report.pdf"
+      ],
+      [
+        "Résumé · welding experience",
+        "assets/documents/Ajay_Iyer_Resume.pdf"
+      ]
+    ],
+    "sourceNote": "Original images and system architecture from the project report. The report predates the completed closed-loop work described here. The proprietary control source is not distributed in this portfolio.",
+    "image": "weld-hardware.webp",
+    "imageAlt": "UR10e robot and welding torch in the project work cell",
+    "imageCaption": "UR10e welding setup, cropped from Figure 1 of the project report.",
+    "gallery": [
+      [
+        "weld-registration.webp",
+        "Three torch-probed reference points on a physical workpiece",
+        "Three-point registration on the physical workpiece."
+      ],
+      [
+        "weld-gui.webp",
+        "Python PyQt5 welding interface with an integrated RViz view",
+        "Operator interface for registration, weld parameters, visualization, and execution."
+      ],
+      [
+        "weld-io.webp",
+        "ROS computer, Arduino, relay and PWM interface to the Miller welder",
+        "Communication and control interfaces for the welding equipment."
+      ],
+      [
+        "weld-camera.webp",
+        "Physical and CAD views of an infrared camera mounted beside the torch",
+        "Optris PI 05M camera integrated with the torch assembly."
+      ],
+      [
+        "weld-thermal.webp",
+        "Thermal image with red and green detected weld-pool boundaries",
+        "Weld-pool boundary detection in a thermal frame."
+      ]
+    ],
+    "benchmark": {
+      "title": "Evaluation criteria and literature context",
+      "text": "The relevant comparison criteria are error relative to the desired weld geometry and thermal state, transient response when the reference or process conditions change, and agreement between in-process estimates and post-weld measurements. These criteria provide a framework for evaluating the closed loop; the references below are literature context, not numerical results from this system.",
+      "references": [
+        [
+          "Doumanidis & Kwak (2002) · GMAW bead-geometry regulation and reference-step response",
+          "https://www.sciencedirect.com/science/article/abs/pii/S0308016102000248"
+        ],
+        [
+          "Xu et al. (2022) · GMAW penetration control, MAE, and RMSE evaluation",
+          "https://www.mdpi.com/2075-4701/12/12/2009"
+        ]
+      ]
+    }
+  },
+  {
+    "slug": "miko-robotics",
+    "title": "Robot motion and feedback control at MIKO",
+    "shortTitle": "Robotics engineering at MIKO",
+    "category": "automation",
+    "eyebrow": "Industry · Robot control",
+    "organization": "MIKO · Mumbai, India",
+    "role": "Robotics Engineer",
+    "date": "Jun 2021 – Jun 2023",
+    "status": "Industry experience",
+    "summary": "Two years developing motion and control software for expressive articulation, self-balancing mobility, and audio-directed interaction on physical robots.",
+    "stack": [
+      "System identification",
+      "Feedback control",
+      "Motion planning",
+      "Sensor integration"
+    ],
+    "visual": "miko",
+    "challenge": "An interactive robot must turn sensing into motion that is stable, repeatable, and expressive. My work connected dynamic modeling and controller design to joint motion, balance, and directional responses on robot hardware.",
+    "contributions": [
+      [
+        "Head-motion manipulator",
+        "Developed control and path-planning software for expressive joint-level articulation. Used system identification, stability testing, and robust controller synthesis to connect a model of the mechanism to its physical response."
+      ],
+      [
+        "Self-balancing mobility",
+        "Extended the control work to a self-balancing robot, integrating its sensor suite and tuning robust controllers to maintain balance."
+      ],
+      [
+        "Audio-directed motion",
+        "Connected direction-of-arrival estimates from audio processing to yaw-axis control so the robot could turn toward an active speaker. Also implemented remote-control functionality for the mobile platform."
+      ]
+    ],
+    "outcome": "This role gave me experience taking control algorithms through modeling, implementation, sensor integration, and hardware testing. It continues to shape how I approach equipment automation: understand the dynamics, make the feedback path explicit, and evaluate the behavior on the system.",
+    "steps": [
+      "Identify dynamics",
+      "Design controller",
+      "Integrate sensors",
+      "Test on hardware"
+    ],
+    "video": "1V38i6eCr49J82yi47gpRzqD1a1cSi8pY",
+    "videoTitle": "Self-balancing robot prototype demonstration",
+    "resources": [
+      [
+        "MIKO company website",
+        "https://miko.ai/"
+      ],
+      [
+        "Résumé · industry experience",
+        "assets/documents/Ajay_Iyer_Resume.pdf"
+      ]
+    ],
+    "sourceNote": "The video shows the self-balancing prototype featured in my original portfolio. It does not identify a specific commercial MIKO product."
+  },
+  {
+    "slug": "vehicle-mpc",
+    "title": "Constrained model predictive control",
+    "category": "controls",
+    "eyebrow": "Optimization · Vehicle dynamics",
+    "organization": "Texas A&M University",
+    "role": "Graduate controls project",
+    "date": "Sep – Nov 2024",
+    "status": "Simulation study",
+    "summary": "A Python vehicle-tracking project using linear parameter-varying model predictive control (LPV-MPC), a six-state model, and explicit motion constraints.",
+    "stack": [
+      "Python",
+      "cvxopt",
+      "MPC",
+      "Quadratic programming",
+      "Vehicle dynamics"
+    ],
+    "visual": "mpc",
+    "challenge": "A vehicle tracking controller must balance path error with actuator and vehicle limits. I used LPV-MPC reference theory to create a Python vehicle-tracking project that updates the prediction model along the horizon and solves for constrained control inputs.",
+    "contributions": [
+      [
+        "Vehicle modeling and prediction",
+        "Worked with a six-state nonlinear bicycle model and steering and acceleration inputs. Used a 20 ms model step and a 10-step horizon, updating the prediction matrices along the expected trajectory."
+      ],
+      [
+        "Constrained optimization",
+        "Applied an augmented input-increment formulation with tracking-error, terminal-error, and input-rate penalties. Solved the quadratic program through qpsolvers using the cvxopt backend."
+      ],
+      [
+        "Motion constraints",
+        "Included ±30° steering limits, 1–30 m/s longitudinal speed bounds, speed-dependent lateral-velocity limits, and acceleration bounds that account for tire-force terms."
+      ],
+      [
+        "Simulation and visualization",
+        "Examined closed-loop reference tracking and the resulting steering and acceleration commands. The project includes reference-path generation and visualizations of the vehicle motion and state histories."
+      ]
+    ],
+    "outcome": "The default circuit configuration was replayed for 154 simulation seconds (7,701 samples). Euclidean position root mean square error (RMSE) was 1.01 m, with a maximum position error of 5.05 m and a maximum absolute steering command of 22.62°. These results describe this specific simulation run. The 20 ms parameter is a model discretization step, not a measured solver runtime.",
+    "steps": [
+      "Current vehicle state",
+      "Update LPV model",
+      "Solve constrained QP",
+      "Apply first input",
+      "Repeat"
+    ],
+    "resources": [
+      [
+        "Download project code & reproduction notes · ZIP",
+        "assets/downloads/LPV_MPC_Project.zip"
+      ],
+      [
+        "Replay measurements · JSON",
+        "assets/downloads/mpc-replay-results.json"
+      ],
+      [
+        "Résumé · MPC project",
+        "assets/documents/Ajay_Iyer_Resume.pdf"
+      ]
+    ],
+    "sourceNote": "Built on LPV-MPC reference theory and implementation by Mark Misin Engineering. The downloadable code retains the original copyright and redistribution terms.",
+    "image": "mpc-tracking.webp",
+    "imageAlt": "LPV-MPC simulated circuit trajectory overlaid on the reference path",
+    "imageCaption": "Circuit tracking from an October 2026 replay of the project’s default configuration. Reference implementation: © Mark Misin Engineering.",
+    "gallery": [
+      [
+        "mpc-inputs.webp",
+        "Simulation plots of position error, steering angle, and acceleration input",
+        "Default circuit replay: tracking error and control inputs over 154 simulation seconds. Dashed lines mark the ±30° steering bounds."
+      ]
+    ]
+  },
+  {
+    "slug": "autonomous-vehicles",
+    "title": "Perception and planning for rural roads",
+    "category": "autonomy",
+    "eyebrow": "Autonomous Vehicles for All · Perception & planning",
+    "organization": "Texas A&M University",
+    "role": "Graduate Research Assistant · Advisor: Dr. Reza Langari",
+    "date": "Aug 2025 – Jul 2026",
+    "status": "ROS-bag & simulation evaluation",
+    "summary": "Frenet-frame trajectory planning and camera/LiDAR perception for marked and unmarked gravel roads, with evaluation under difficult visibility and sensor conditions.",
+    "stack": [
+      "ROS",
+      "Frenet planning",
+      "CLRerNet",
+      "SAM",
+      "Camera/LiDAR fusion"
+    ],
+    "image": "ava-vehicle.webp",
+    "imageAlt": "Annotated AVA research vehicle with its sensor locations",
+    "imageCaption": "AVA research vehicle and sensor layout, from the team's technical overview. My contribution focused on perception and motion planning.",
+    "challenge": "Lane markings alone are not enough for rural-road driving. Unmarked gravel, glare, low light, and dust make road boundaries uncertain, while asynchronous camera, LiDAR, and odometry data complicate the planner's view of the environment.",
+    "contributions": [
+      [
+        "Frenet-frame planning",
+        "Developed a motion planner that generated candidate trajectories using lateral offsets and velocity profiles. Selected feasible candidates using curvature constraints and a weighted cost function."
+      ],
+      [
+        "Perception and coordinate alignment",
+        "Tuned CLRerNet lane detection and SAM drivable-area segmentation to supply road-boundary estimates. Aligned camera, LiDAR, and odometry data in a shared map frame for the ROS perception and planning pipeline."
+      ],
+      [
+        "Evaluation under degraded inputs",
+        "Tested using ROS bags and simulation with low light, glare, dust, unmarked gravel, sensor dropout, and timing jitter. Adjusted perception thresholds and temporal smoothing to address degraded trajectory candidates and maintain lane continuity."
+      ],
+      [
+        "Visual-token analysis",
+        "Studied visual-token redundancy in OpenDriveVLA across 6,019 nuScenes validation samples. Approximately 10 principal components captured 80% of scene-token variance and 97% of map-token variance. This suggested opportunities for token reduction; variance retention alone does not establish a deployed inference speedup."
+      ]
+    ],
+    "outcome": "The work connected road perception to feasible trajectory selection and examined how the pipeline behaved when visibility or sensor timing degraded. Evaluation used recorded data and simulation; the vehicle photographs document the AVA research platform.",
+    "gallery": [
+      [
+        "ava-lanes.webp",
+        "Road image with colored lane-detection overlays",
+        "Team baseline: LaneATT lane detection, from the AVA technical overview. My later perception work used CLRerNet."
+      ],
+      [
+        "ava-road.webp",
+        "Road image with magenta drivable-surface segmentation",
+        "Team baseline: PSPNet road-surface segmentation, from the AVA technical overview. My later segmentation work used SAM."
+      ]
+    ],
+    "resources": [
+      [
+        "Résumé · AVA research",
+        "assets/documents/Ajay_Iyer_Resume.pdf"
+      ]
+    ],
+    "sourceNote": "Contributions and evaluation scope from my résumé. Vehicle and baseline perception images from AVA-tech-overview.pptx, slides 2, 17, and 18."
+  },
+  {
+    "slug": "frontier-exploration",
+    "title": "Semantic frontier exploration",
+    "category": "autonomy",
+    "eyebrow": "Current research · Multi-robot exploration",
+    "organization": "Texas A&M University",
+    "role": "Graduate Researcher · Advisor: Dr. Srikanth Saripalli",
+    "date": "Aug 2026 – Present",
+    "status": "Ongoing research",
+    "summary": "Developing semantic value maps and viewpoint selection for robot exploration when geometric coverage leaves important areas hidden by clutter or occlusion.",
+    "stack": [
+      "ROS 2",
+      "Gazebo",
+      "Husky",
+      "Jackal",
+      "VLMs",
+      "EKF"
+    ],
+    "visual": "frontier",
+    "challenge": "A geometrically explored map can still leave a robot with poor views of important areas. Clutter, occlusion, and restricted viewpoints motivate exploration that considers the semantic value of another observation as well as travel cost.",
+    "contributions": [
+      [
+        "Semantic value mapping",
+        "Developing a 2D map that projects image–text relevance scores using depth and robot pose, with visibility-based weighting to fuse observations."
+      ],
+      [
+        "Frontier and viewpoint selection",
+        "Formulating frontier ranking using semantic map values, expected information gain, and travel cost to guide further inspection."
+      ],
+      [
+        "Multi-robot evaluation framework",
+        "Building a ROS 2/Gazebo Husky–Jackal framework with LiDAR mapping, cameras, coordinate transforms, and extended Kalman filter localization to evaluate frontier selection under occlusion and limited viewpoint access."
+      ]
+    ],
+    "outcome": "This research is in progress. Evaluation will examine whether semantic and visibility information can guide useful inspection beyond geometric coverage.",
+    "steps": [
+      "Images + depth + pose",
+      "Semantic value map",
+      "Rank frontiers",
+      "Select inspection view"
+    ],
+    "resources": [
+      [
+        "Résumé · current research",
+        "assets/documents/Ajay_Iyer_Resume.pdf"
+      ]
+    ],
+    "sourceNote": "Research objectives and framework description from my 2026 résumé."
+  },
+  {
+    "slug": "vehicle-platooning",
+    "title": "Robust control for vehicle platooning",
+    "category": "controls",
+    "eyebrow": "Master's thesis · Nonlinear control",
+    "organization": "Indian Institute of Technology, Roorkee",
+    "role": "M.Tech. · Systems and Control",
+    "date": "Aug 2020 – Apr 2021",
+    "status": "Simulation & controller comparison",
+    "summary": "Longitudinal and lateral control of a three-vehicle platoon, comparing PID and sliding-mode approaches through tracking error and control effort.",
+    "stack": [
+      "MATLAB",
+      "Simulink",
+      "Sliding mode control",
+      "Luenberger observer"
+    ],
+    "image": "platoon-lateral.webp",
+    "imageAlt": "Master's thesis plot of lateral tracking error using super-twisting control",
+    "imageCaption": "Lateral tracking error with super-twisting control, reproduced from my master's thesis.",
+    "challenge": "A vehicle platoon must maintain spacing while following a reference path. The study examined the tradeoffs among convergence, overshoot, chattering, and control effort for nonlinear vehicle dynamics.",
+    "contributions": [
+      [
+        "Dynamics and state estimation",
+        "Modeled three vehicles using nonlinear bicycle dynamics in MATLAB/Simulink, with a reference speed of 8 m/s. Used a Luenberger observer to estimate yaw rate from lateral velocity."
+      ],
+      [
+        "Controller comparison",
+        "Implemented PID, conventional sliding mode control, power-rate exponential reaching law (PREL), and super-twisting control for the longitudinal and lateral channels."
+      ],
+      [
+        "Quantitative evaluation",
+        "Compared integral tracking-error measures and control energy across the three vehicles. Examined both path-following behavior and maintenance of longitudinal spacing."
+      ]
+    ],
+    "outcome": "PREL produced the lowest reported error indices in the comparison. Super-twisting provided lateral convergence without overshoot and the lowest longitudinal control energy. These results highlight the tradeoff between tracking accuracy and control effort in the simulated platoon.",
+    "gallery": [
+      [
+        "platoon-longitudinal.webp",
+        "Longitudinal tracking errors for three agents using super-twisting control",
+        "Longitudinal error for the leader and following vehicles under super-twisting control."
+      ]
+    ],
+    "resources": [
+      [
+        "Read master's thesis · PDF",
+        "assets/documents/vehicle-platooning-thesis.pdf"
+      ]
+    ],
+    "sourceNote": "Figures and controller comparisons from Master_thesis.pdf, including the performance and control-energy tables. Related work was presented at ACODS 2022."
+  },
+  {
+    "slug": "robot-swarm",
+    "title": "A robot swarm searching for light",
+    "category": "autonomy",
+    "eyebrow": "Bachelor's thesis · Multi-robot hardware",
+    "organization": "National Institute of Technology, Tiruchirappalli",
+    "role": "B.Tech. · Instrumentation and Control",
+    "date": "Jan – May 2019",
+    "status": "Three-robot hardware demonstration",
+    "summary": "Particle swarm optimization on three LEGO NXT robots, using light measurements, overhead ArUco tracking, and obstacle sensing to locate the brightest spot.",
+    "stack": [
+      "Python",
+      "MATLAB",
+      "OpenCV",
+      "ArUco",
+      "LEGO NXT",
+      "Bluetooth"
+    ],
+    "image": "pso-robot.webp",
+    "imageAlt": "LEGO NXT robot carrying an ArUco tracking marker",
+    "imageCaption": "One of the robot platforms used in the bachelor's project, with an ArUco marker for overhead localization.",
+    "challenge": "The brightest location is initially unknown, and each robot can only measure light at its current position. A shared search strategy needs localization, communication, navigation, and obstacle handling to work on real robots.",
+    "contributions": [
+      [
+        "Search and coordination",
+        "Implemented particle swarm optimization to update robot destinations using personal-best and swarm-best light measurements. Used MATLAB for simulation and Python in the hardware workflow."
+      ],
+      [
+        "Localization and communication",
+        "Used an overhead camera and ArUco markers to estimate robot positions. Connected the camera to the central system over USB and the three NXT robots over Bluetooth."
+      ],
+      [
+        "Physical navigation",
+        "Integrated light and ultrasonic sensors with the robots. The central system issued destination coordinates, while obstacle handling allowed robots to change their paths around static obstacles and other robots."
+      ]
+    ],
+    "outcome": "The robots converged to the brightest region in the reported hardware trials. One documented successful trial used 11 iterations, with arrival times of 130, 188, and 264 seconds. The related ICECA 2019 paper received a Best Paper Award.",
+    "gallery": [
+      [
+        "pso-start.webp",
+        "Three robots at separate starting positions in a light-search arena",
+        "Initial positions in the experimental arena."
+      ],
+      [
+        "pso-finish.webp",
+        "Three robots grouped around the brightest region",
+        "Final configuration after the robots converge toward the light source."
+      ]
+    ],
+    "resources": [
+      [
+        "Read bachelor's thesis · PDF",
+        "assets/documents/robot-swarm-thesis.pdf"
+      ]
+    ],
+    "sourceNote": "Implementation and original photographs from NIT_Trichy_Btech_Thesis.pdf. Single-trial timing comes from Chapter 6; award information comes from my résumé."
+  },
+  {
+    "slug": "ekf-slam",
+    "title": "EKF-SLAM and embedded robot navigation",
+    "category": "autonomy",
+    "eyebrow": "IIT Bombay internship · Estimation & embedded control",
+    "organization": "Indian Institute of Technology, Bombay",
+    "role": "Summer intern · Joint project with Alden J. Joseph",
+    "date": "Jun – Jul 2017",
+    "status": "MATLAB simulation + hardware navigation",
+    "summary": "A study of joint robot-pose and landmark estimation in MATLAB, alongside ultrasonic obstacle avoidance and encoder-based navigation on a SPARK-V robot.",
+    "stack": [
+      "MATLAB",
+      "EKF-SLAM",
+      "Embedded C",
+      "ATmega16",
+      "Ultrasonic sensing"
+    ],
+    "image": "slam-map.webp",
+    "imageAlt": "MATLAB EKF-SLAM simulation showing a robot path and landmark estimates",
+    "imageCaption": "EKF-SLAM simulation from the internship report, showing a waypoint route and estimated landmarks.",
+    "challenge": "A mobile robot must reason about its pose while its sensors and motion are noisy. This project combined a simulation study of probabilistic mapping with a separate physical implementation of obstacle-avoiding navigation.",
+    "contributions": [
+      [
+        "SLAM simulation",
+        "Adapted a MATLAB EKF-SLAM simulator for joint pose and landmark estimation. Studied Jacobian linearization and nearest-neighbor data association with Mahalanobis gating."
+      ],
+      [
+        "Mapping behavior",
+        "Observed reduced landmark uncertainty over repeated waypoint traversals. Extended the simulator with reactive steering using three sensor views to navigate around landmarks without preset waypoints."
+      ],
+      [
+        "Embedded navigation",
+        "Implemented navigation on a SPARK-V robot in Embedded C for its ATmega16 controller. Combined ultrasonic obstacle avoidance with wheel-encoder distance feedback and demonstrated traversal of a room containing obstacles."
+      ]
+    ],
+    "outcome": "The work connected the mathematics of estimation to practical mobile-robot sensing and control. EKF-SLAM was studied in MATLAB; the SPARK-V demonstration implemented obstacle avoidance and encoder feedback rather than a full onboard SLAM stack.",
+    "gallery": [
+      [
+        "spark-robot.webp",
+        "SPARK-V robot platform shown in the internship report",
+        "SPARK-V hardware platform documented in the internship report."
+      ]
+    ],
+    "resources": [
+      [
+        "Read internship report · PDF",
+        "assets/documents/ekf-slam-report.pdf"
+      ]
+    ],
+    "sourceNote": "Based on Finalreport1.pdf, jointly authored with Alden J. Joseph, and the implementation scope stated in my 2026 résumé."
+  },
+  {
+    "slug": "needle-tracking",
+    "title": "Needle-tip tracking with Kalman filtering",
+    "category": "controls",
+    "eyebrow": "State estimation · Medical robotics project",
+    "organization": "Indian Institute of Technology, Roorkee",
+    "role": "Graduate project",
+    "date": "Sep – Dec 2019",
+    "status": "Artificial & biological tissue experiments",
+    "summary": "Combining ultrasound image processing and a four-state Kalman filter to estimate needle-tip position when speckle obscures the visual measurement.",
+    "stack": [
+      "LabVIEW",
+      "Kalman filtering",
+      "RANSAC",
+      "Image processing"
+    ],
+    "visual": "needle",
+    "challenge": "Ultrasound speckle can make a needle tip difficult to detect consistently. I combined geometric image processing with state estimation to maintain a position estimate through uncertain visual observations.",
+    "contributions": [
+      [
+        "Visual measurement",
+        "Built a LabVIEW pipeline using background subtraction, edge detection, and region-of-interest RANSAC line fitting to extract needle features."
+      ],
+      [
+        "State estimation",
+        "Used a four-state Kalman filter to combine measurements over time and maintain needle-tip position estimates when speckle obscured the tip."
+      ],
+      [
+        "Experimental comparison",
+        "Compared the estimates against an NDI-Aurora electromagnetic tracker in artificial and biological tissue, with insertion depths up to 6.5 cm."
+      ]
+    ],
+    "outcome": "Compared with vision-only tracking, position root mean square error (RMSE) decreased from 0.79 cm to 0.03 cm in artificial tissue and from 0.84 cm to 0.21 cm in biological tissue. These results apply to the artificial- and biological-tissue experimental setup.",
+    "steps": [
+      "Ultrasound image",
+      "Extract needle features",
+      "RANSAC measurement",
+      "Kalman estimate"
+    ],
+    "resources": [
+      [
+        "Résumé · needle tracking",
+        "assets/documents/Ajay_Iyer_Resume.pdf"
+      ]
+    ],
+    "sourceNote": "Methods and reported RMSE values from my 2026 résumé."
+  }
+]
