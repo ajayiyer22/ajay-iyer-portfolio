@@ -3,7 +3,7 @@
     "slug": "welding-automation",
     "title": "Robotic welding automation",
     "category": "automation",
-    "eyebrow": "Equipment integration · Motion planning",
+    "eyebrow": "Robotic Automation · Motion planning",
     "organization": "Texas A&M University",
     "role": "Graduate Research Assistant · Advisor: Dr. Prabhakar Pagilla",
     "date": "Aug 2024 – Aug 2025",
@@ -140,7 +140,7 @@
         "Connected direction-of-arrival estimates from audio processing to yaw-axis control so the robot could turn toward an active speaker. Also implemented remote-control functionality for the mobile platform."
       ]
     ],
-    "outcome": "This role gave me experience taking control algorithms through modeling, implementation, sensor integration, and hardware testing. It continues to shape how I approach equipment automation: understand the dynamics, make the feedback path explicit, and evaluate the behavior on the system.",
+    "outcome": "This role gave me experience taking control algorithms through modeling, implementation, sensor integration, and hardware testing. It continues to shape how I approach robotic automation: understand the dynamics, make the feedback path explicit, and evaluate the behavior on the system.",
     "steps": [
       "Identify dynamics",
       "Design controller",
@@ -163,74 +163,122 @@
   },
   {
     "slug": "vehicle-mpc",
-    "title": "Constrained model predictive control",
+    "title": "LPV-MPC vehicle tracking",
     "category": "controls",
-    "eyebrow": "Optimization · Vehicle dynamics",
-    "organization": "Texas A&M University",
-    "role": "Graduate controls project",
-    "date": "Sep – Nov 2024",
-    "status": "Simulation study",
-    "summary": "A Python vehicle-tracking project using linear parameter-varying model predictive control (LPV-MPC), a six-state model, and explicit motion constraints.",
+    "eyebrow": "Predictive control · Custom implementation",
+    "organization": "Independent portfolio project",
+    "role": "Modeling, controller implementation & evaluation",
+    "date": "2024 concept study · 2026 custom implementation",
+    "status": "Three-scenario simulation study",
+    "summary": "A custom Python controller that schedules its prediction model with speed and curvature, tracks three driving routes, and enforces steering, acceleration, and command-rate limits.",
     "stack": [
       "Python",
-      "cvxopt",
-      "MPC",
-      "Quadratic programming",
-      "Vehicle dynamics"
+      "LPV-MPC",
+      "OSQP",
+      "NumPy / SciPy",
+      "Nonlinear simulation"
     ],
     "visual": "mpc",
-    "challenge": "A vehicle tracking controller must balance path error with actuator and vehicle limits. I used LPV-MPC reference theory to create a Python vehicle-tracking project that updates the prediction model along the horizon and solves for constrained control inputs.",
+    "challenge": "A tracking controller must anticipate curves while respecting how far and how quickly its actuators can move. This project develops a new linear parameter-varying model predictive control (LPV-MPC) implementation and tests its recovery from an initial offset and an unmodeled disturbance.",
     "contributions": [
       [
-        "Vehicle modeling and prediction",
-        "Worked with a six-state nonlinear bicycle model and steering and acceleration inputs. Used a 20 ms model step and a 10-step horizon, updating the prediction matrices along the expected trajectory."
+        "Vehicle model and tracking coordinates",
+        "Developed a four-state nonlinear kinematic bicycle simulator with position, heading, and speed. Defined along-track, cross-track, heading, and speed errors in the moving reference frame. A separate RK4 integrator propagates the simulated vehicle."
       ],
       [
-        "Constrained optimization",
-        "Applied an augmented input-increment formulation with tracking-error, terminal-error, and input-rate penalties. Solved the quadratic program through qpsolvers using the cvxopt backend."
+        "Prediction model and optimization",
+        "Derived a local error model scheduled by reference speed and curvature across a 20-step horizon. At each 100 ms update, custom Python code assembles a sparse quadratic program balancing tracking error, feedforward commands, and command changes. OSQP solves the numerical optimization."
       ],
       [
-        "Motion constraints",
-        "Included ±30° steering limits, 1–30 m/s longitudinal speed bounds, speed-dependent lateral-velocity limits, and acceleration bounds that account for tire-force terms."
+        "Actuator and speed constraints",
+        "Included ±25° steering, ±35°/s steering-rate, −2.5 to +2.0 m/s² acceleration, ±3.0 m/s³ commanded-jerk, and 1–10 m/s predicted-speed bounds. Each run separately checks the commands and sampled nonlinear vehicle speed against those limits."
       ],
       [
-        "Simulation and visualization",
-        "Examined closed-loop reference tracking and the resulting steering and acceleration commands. The project includes reference-path generation and visualizations of the vehicle motion and state histories."
+        "Custom experiments and plots",
+        "Created analytic oval, figure-eight, and lane-change routes. Every run starts with the same tracking offset; the lane-change case also receives a lateral drift and longitudinal load from 24 to 26 seconds. The plots show trajectory tracking, error recovery, and actuator constraints."
       ]
     ],
-    "outcome": "The default circuit configuration was replayed for 154 simulation seconds (7,701 samples). Euclidean position root mean square error (RMSE) was 1.01 m, with a maximum position error of 5.05 m and a maximum absolute steering command of 22.62°. These results describe this specific simulation run. The 20 ms parameter is a model discretization step, not a measured solver runtime.",
+    "outcome": "All 1,520 optimization steps across the three scenarios returned a solved status, and the applied commands, command rates, and sampled speeds passed the configured limit checks within numerical tolerance. The table reports root mean square error (RMSE) over every recorded state, including startup recovery. These are results from the new custom simulation.",
     "steps": [
-      "Current vehicle state",
-      "Update LPV model",
-      "Solve constrained QP",
-      "Apply first input",
-      "Repeat"
+      "Measure tracking error",
+      "Schedule prediction model",
+      "Build constrained QP",
+      "Apply first command",
+      "Simulate & repeat"
     ],
     "resources": [
       [
-        "Download project code & reproduction notes · ZIP",
-        "assets/downloads/LPV_MPC_Project.zip"
+        "Trajectory tracking · three scenarios",
+        "assets/images/custom-lpv-paths.webp"
       ],
       [
-        "Replay measurements · JSON",
-        "assets/downloads/mpc-replay-results.json"
+        "Cross-track and speed errors",
+        "assets/images/custom-lpv-errors.webp"
       ],
       [
-        "Résumé · MPC project",
-        "assets/documents/Ajay_Iyer_Resume.pdf"
+        "Steering, acceleration, and rate limits",
+        "assets/images/custom-lpv-constraints.webp"
       ]
     ],
-    "sourceNote": "Built on LPV-MPC reference theory and implementation by Mark Misin Engineering. The downloadable code retains the original copyright and redistribution terms.",
-    "image": "mpc-tracking.webp",
-    "imageAlt": "LPV-MPC simulated circuit trajectory overlaid on the reference path",
-    "imageCaption": "Circuit tracking from an October 2026 replay of the project’s default configuration. Reference implementation: © Mark Misin Engineering.",
+    "sourceNote": "This implementation builds on the LPV-MPC concepts studied in my earlier Mark Misin–based project. The figures show results from the new custom simulation, using OSQP for numerical optimization.",
+    "image": "custom-lpv-paths.webp",
+    "imageAlt": "Custom LPV-MPC tracking plots for an oval, figure-eight, and disturbed lane-change route, with full-run position errors",
+    "imageCaption": "Three custom scenarios from the new implementation. All runs include an initial offset; the lane-change run also includes an unmodeled disturbance. Click the figures below for full-size details.",
     "gallery": [
       [
-        "mpc-inputs.webp",
-        "Simulation plots of position error, steering angle, and acceleration input",
-        "Default circuit replay: tracking error and control inputs over 154 simulation seconds. Dashed lines mark the ±30° steering bounds."
+        "custom-lpv-paths.webp",
+        "Reference and simulated vehicle trajectories for the three custom LPV-MPC scenarios",
+        "Reference and actual trajectories, with full-run position RMSE. The lane-change panel uses independent axis scales to show lateral motion."
+      ],
+      [
+        "custom-lpv-errors.webp",
+        "Cross-track and speed-error histories for all three scenarios, including the 24–26 second disturbance",
+        "Signed cross-track and speed errors. The shaded interval marks the unmodeled lateral drift and longitudinal load in the lane-change run."
+      ],
+      [
+        "custom-lpv-constraints.webp",
+        "Applied steering, acceleration, steering-rate and commanded-jerk traces with configured bounds",
+        "Figure-eight input histories and rate limits. Dashed lines show the constraints included in the optimization."
       ]
-    ]
+    ],
+    "shortTitle": "Custom LPV-MPC controller",
+    "wideGallery": true,
+    "benchmark": {
+      "title": "Model and evaluation scope",
+      "text": "The prediction model is a local LPV approximation around the reference trajectory. These experiments use a four-state kinematic vehicle, perfect state feedback, and a known reference; they do not model tire slip, measurement noise, or actuator lag. The 100 ms interval is a simulation setting. The new scenarios are separate from the earlier six-state reference-code study, so their errors are not a like-for-like performance comparison.",
+      "references": [
+        [
+          "OSQP · numerical solver and Python interface",
+          "https://osqp.org/docs/interfaces/python.html"
+        ]
+      ]
+    },
+    "resultsTable": {
+      "caption": "Full-run errors, including startup and the lane-change disturbance.",
+      "headers": [
+        "Scenario",
+        "Position RMSE (m)",
+        "Cross-track RMSE (m)"
+      ],
+      "rows": [
+        [
+          "Variable-speed oval",
+          "0.318",
+          "0.250"
+        ],
+        [
+          "Figure-eight",
+          "0.289",
+          "0.197"
+        ],
+        [
+          "Disturbed lane change",
+          "0.396",
+          "0.271"
+        ]
+      ]
+    },
+    "resourcesTitle": "View full-size plots"
   },
   {
     "slug": "autonomous-vehicles",

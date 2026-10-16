@@ -40,7 +40,7 @@ def visual(p, prefix='', loading='lazy'):
     data = {
         'welding': ('Robotic welding', ['Register the workpiece', 'Plan the torch motion', 'Execute & monitor'], 'UR10e · Miller · Python / ROS'),
         'miko': ('Physical robot control', ['Model the dynamics', 'Close the feedback loop', 'Test the motion'], 'Articulation · Balance · Interaction'),
-        'mpc': ('Predictive control', ['Predict vehicle motion', 'Optimize within limits', 'Apply & repeat'], '6 states · 10-step horizon · Python'),
+        'mpc': ('Predictive control', ['Predict vehicle motion', 'Optimize within limits', 'Apply & repeat'], '4 states · 20-step horizon · Python'),
         'frontier': ('Ongoing research', ['Observe the scene', 'Map semantic value', 'Choose the next view'], 'ROS 2 · Husky + Jackal'),
         'needle': ('Needle-tip estimation', ['Extract visual features', 'Estimate the state', 'Compare with ground truth'], 'Ultrasound · Kalman filtering')
     }
@@ -62,10 +62,10 @@ def homepage():
 <div class="actions"><a class="button" href="#portfolio">Explore my work <span aria-hidden="true">↘</span></a><a class="button secondary" href="assets/documents/Ajay_Iyer_Resume.pdf">View résumé ↗</a></div></div>
 <figure class="hero-portrait"><img src="assets/images/ajay-iyer.webp" width="1000" height="750" alt="Ajay Iyer outdoors overlooking a canyon" fetchpriority="high"><figcaption class="photo-note"><span>Ajay Ganesan Iyer</span><span>College Station, TX</span></figcaption></figure></section>
 <div class="credentials"><span><strong>Texas A&M</strong> · Doctoral research</span><span><strong>MIKO</strong> · Robotics Engineer, 2021–2023</span><span><strong>IIT Roorkee</strong> · Systems & Control</span><span><strong>NIT Trichy</strong> · Instrumentation & Control</span></div></div>
-<section class="section about-band" id="about"><div class="container about-layout"><div><p class="eyebrow">01 / About</p><h2>Connecting models<br>to machines.</h2></div><div class="about-copy"><p class="lead">I’m a Mechanical Engineering Ph.D. student at Texas A&M University, working across robotics, motion planning, and control.</p><p>My current research with Dr. Srikanth Saripalli explores how semantic information can guide robots toward useful inspection viewpoints. Previously, I worked on rural-road perception and planning with Dr. Reza Langari and robotic welding automation with Dr. Prabhakar Pagilla.</p><p>Before my Ph.D., I spent two years as a Robotics Engineer at MIKO. Building and testing physical robots taught me to consider the whole system: dynamics, sensors, software, and the behavior that emerges when they run together.</p><p>My academic foundation is in Systems and Control at IIT Roorkee and Instrumentation and Control at NIT Trichy. I’m interested in engineering roles where I can turn that foundation into useful robot behavior.</p>
+<section class="section about-band" id="about"><div class="container about-layout"><div><p class="eyebrow">01 / About</p><h2>Connecting models<br>to machines.</h2></div><div class="about-copy"><p class="lead">I’m a Mechanical Engineering Ph.D. student at Texas A&M University, working across robotics, motion planning, and control.</p><p>My current research with Dr. Srikanth Saripalli explores how semantic information can guide robots toward useful inspection viewpoints. Previously, I worked on autonomous vehicle perception and planning with Dr. Reza Langari and robotic welding automation with Dr. Prabhakar Pagilla.</p><p>Before my Ph.D., I spent two years as a Robotics Engineer at MIKO. Building and testing physical robots taught me to consider the whole system: dynamics, sensors, software, and the behavior that emerges when they run together.</p><p>My academic foundation is in Systems and Control at IIT Roorkee and Instrumentation and Control at NIT Trichy. I’m interested in engineering roles where I can turn that foundation into useful robot behavior.</p>
 <div class="skills-grid" id="skill"><div><h3>Software & tools</h3><p>Python · C++ · C / Embedded C · MATLAB / Simulink · ROS 1 & 2 · Git · PyQt5</p></div><div><h3>Planning & control</h3><p>Model predictive control · Inverse kinematics · RRT* · PID · Sliding mode control · System identification</p></div><div><h3>Estimation & perception</h3><p>Kalman filtering · Camera/LiDAR fusion · OpenCV · Semantic segmentation · PCA · RANSAC</p></div><div><h3>Robotics platforms</h3><p>UR10e · Arduino · Raspberry Pi · Gazebo · RViz · CARLA · Webots · LabVIEW</p></div></div></div></div></section>
 <section class="section" id="portfolio"><div class="container"><div class="section-heading"><div><p class="eyebrow">02 / Selected work</p><h2>Engineering in practice.</h2></div><p>Hardware, software, and the decisions that connect them. Explore the problem, my contribution, and the evidence behind each project.</p></div>'''
-    body+=f'''<article class="featured"><a class="feature-visual" href="projects/{w['slug']}.html" aria-label="Explore robotic welding automation">{visual(w)}</a><div class="feature-content"><p class="eyebrow">Featured / Equipment automation</p><h3>{e(w['title'])}</h3><p>{e(w['summary'])}</p><p>Three-point CAD registration. Timed torch trajectories. An integrated operator interface.</p>{tags(w)}<a class="text-link" href="projects/{w['slug']}.html">Explore the welding system ↗</a></div></article><div class="feature-bottom">'''
+    body+=f'''<article class="featured"><a class="feature-visual" href="projects/{w['slug']}.html" aria-label="Explore robotic welding automation">{visual(w)}</a><div class="feature-content"><p class="eyebrow">Featured / Robotic Automation</p><h3>{e(w['title'])}</h3><p>{e(w['summary'])}</p><p>Three-point CAD registration. Timed torch trajectories. An integrated operator interface.</p>{tags(w)}<a class="text-link" href="projects/{w['slug']}.html">Explore the welding system ↗</a></div></article><div class="feature-bottom">'''
     for i,p in enumerate(PROJECTS[1:3],2):
         body+=f'''<article class="compact-feature"><span class="number">0{i}</span><p class="eyebrow">{e(p['eyebrow'])}</p><h3>{e(p.get('shortTitle',p['title']))}</h3><p>{e(p['summary'])}</p><a class="text-link" href="projects/{p['slug']}.html">Read the case study ↗</a></article>'''
     body+='''</div><div class="section-heading" style="margin-top:65px"><div><p class="eyebrow">Project archive</p><h2>Explore the work.</h2></div><p>Research and engineering across automation, autonomy, and controls.</p></div>
@@ -85,7 +85,7 @@ def homepage():
 <section class="section about-band" id="publications"><div class="container"><div class="section-heading"><div><p class="eyebrow">04 / Publications & recognition</p><h2>Published work.</h2></div><a class="text-link" href="https://scholar.google.com/citations?user=XCSeehYAAAAJ&hl=en">Google Scholar ↗</a></div>
 <article class="publication"><div class="year">2022</div><div><h3>Sliding Mode Control Using Power Rate Exponential Reaching Law for Urban Platooning</h3><p>A. G. Iyer, J. Samantaray, S. Ghosh, A. Dey, S. Chakrabarty</p><p>7th International Conference on Advances in Control and Optimization of Dynamical Systems (ACODS)</p><a class="text-link" href="projects/vehicle-platooning.html">Related thesis and results ↗</a></div></article>
 <article class="publication"><div class="year">2019</div><div><h3>Particle Swarm Optimization Algorithm for Finding the Brightest Spot in an Arena</h3><p>M. Adharsh, Ajay G. Iyer, Abhinav G. Athrey, Ashwin V., Venkatesh V. G.</p><p>3rd IEEE International Conference on Electronics, Communication and Aerospace Technology (ICECA)</p><p class="award">Best Paper Award · 2019</p><a class="text-link" href="projects/robot-swarm.html">Robot setup and experiments ↗</a></div></article></div></section>
-<section class="contact" id="contact"><div class="container contact-layout"><div><p class="eyebrow">05 / Get in touch</p><h2>Let’s build useful robots.</h2><p>I’m interested in robotics software, equipment automation, motion planning, and control opportunities.</p></div><div class="contact-links"><a href="mailto:ajay.iyer79@gmail.com">ajay.iyer79@gmail.com ↗</a><a href="mailto:ajayiyer2397@tamu.edu">ajayiyer2397@tamu.edu ↗</a><a href="https://www.linkedin.com/in/ajay-iyer-792299116/">LinkedIn ↗</a><a href="assets/documents/Ajay_Iyer_Resume.pdf" download>Download résumé ↓</a></div></div></section></main>'''
+<section class="contact" id="contact"><div class="container contact-layout"><div><p class="eyebrow">05 / Get in touch</p><h2>Let’s build useful robots.</h2><p>I’m interested in robotics software, robotic automation, motion planning, and control opportunities.</p></div><div class="contact-links"><a href="mailto:ajay.iyer79@gmail.com">ajay.iyer79@gmail.com ↗</a><a href="mailto:ajayiyer2397@tamu.edu">ajayiyer2397@tamu.edu ↗</a><a href="https://www.linkedin.com/in/ajay-iyer-792299116/">LinkedIn ↗</a><a href="assets/documents/Ajay_Iyer_Resume.pdf" download>Download résumé ↓</a></div></div></section></main>'''
     (ROOT/'index.html').write_text(body+footer())
 
 
@@ -102,7 +102,15 @@ def casepage(p, next_p):
     body+=f'<section id="challenge"><h2>The problem</h2><p>{e(p["challenge"])}</p></section><section id="contributions"><h2>Engineering work</h2>'
     for title,text in p['contributions']:body+=f'<h3>{e(title)}</h3><p>{e(text)}</p>'
     if p.get('steps'):body+='<ol class="process" aria-label="System workflow">'+''.join(f'<li>{e(step)}</li>' for step in p['steps'])+'</ol>'
-    body+=f'</section><section id="outcome"><h2>Results & scope</h2><p>{e(p["outcome"])}</p></section>'
+    body+=f'</section><section id="outcome"><h2>Results & scope</h2><p>{e(p["outcome"])}</p>'
+    if p.get('resultsTable'):
+        t=p['resultsTable']
+        body+='<div class="results-scroll" role="region" aria-label="Simulation results" tabindex="0"><table class="results-table"><caption>'+e(t['caption'])+'</caption><thead><tr>'
+        body+=''.join(f'<th scope="col">{e(h)}</th>' for h in t['headers'])+'</tr></thead><tbody>'
+        for row in t['rows']:
+            body+=f'<tr><th scope="row">{e(row[0])}</th>'+''.join(f'<td>{e(v)}</td>' for v in row[1:])+'</tr>'
+        body+='</tbody></table></div>'
+    body+='</section>'
     if p.get('benchmark'):
         b=p['benchmark']
         body+=f'<section id="evaluation"><h2>{e(b["title"])}</h2><p>{e(b["text"])}</p><ul class="resource-list">'
@@ -110,14 +118,15 @@ def casepage(p, next_p):
             body+=f'<li><a href="{e(url)}">{e(title)} ↗</a></li>'
         body+='</ul></section>'
     if p.get('gallery'):
-        body+='<section id="gallery"><h2>A closer look</h2><div class="gallery">'
+        gallery_class='gallery gallery-wide' if p.get('wideGallery') else 'gallery'
+        body+=f'<section id="gallery"><h2>A closer look</h2><div class="{gallery_class}">'
         for file,alt,caption in p['gallery']:
             body+=f'<figure><a href="../assets/images/{e(file)}" aria-label="View full-size image: {e(alt)}"><img loading="lazy" src="../assets/images/{e(file)}" alt="{e(alt)}"></a><figcaption>{e(caption)}</figcaption></figure>'
         body+='</div></section>'
     if p.get('video'):
         vid=p['video'];title=e(p['videoTitle'])
         body+=f'''<section id="demo"><h2>Watch the system</h2><div class="video-shell"><a class="video-button" href="https://drive.google.com/file/d/{vid}/view" target="_blank" rel="noopener noreferrer">▶ Watch {title.lower()} ↗</a></div><p class="video-fallback">Opens the video on Google Drive in a new tab.</p></section>'''
-    body+='<section class="resources" id="resources"><h2>Read more</h2><ul class="resource-list">'
+    body+=f'<section class="resources" id="resources"><h2>{e(p.get("resourcesTitle", "Read more"))}</h2><ul class="resource-list">'
     for title,url in p['resources']:
         link=url if url.startswith('https://') else prefix+url
         body+=f'<li><a href="{e(link)}">{e(title)} ↗</a></li>'
