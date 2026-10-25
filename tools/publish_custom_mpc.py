@@ -1,27 +1,20 @@
-"""Refresh portfolio figures, measured results and source download after a run."""
+"""Refresh portfolio figures and measured results from local experiment files."""
 import hashlib
 import json
 from pathlib import Path
 import shutil
-from zipfile import ZipFile, ZIP_DEFLATED
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT/'code/custom_lpv_mpc'
+SOURCE = ROOT.parent/'portfolio_project_sources/custom_lpv_mpc'
 RESULTS = SOURCE/'results'
 report = json.loads((RESULTS/'metrics.json').read_text())
 for name, digest in report['source_sha256'].items():
     if hashlib.sha256((SOURCE/name).read_bytes()).hexdigest() != digest:
         raise SystemExit(f'{name} changed since the simulation. Run run.py again first.')
-for name in ['custom-lpv-paths', 'custom-lpv-errors', 'custom-lpv-constraints']:
-    shutil.copy2(RESULTS/f'{name}.webp', ROOT/'assets/images'/f'{name}.webp')
-shutil.copy2(RESULTS/'metrics.json', ROOT/'assets/downloads/custom-lpv-metrics.json')
-with ZipFile(ROOT/'assets/downloads/Custom_LPV_MPC.zip', 'w', ZIP_DEFLATED) as archive:
-    for path in sorted(SOURCE.rglob('*')):
-        if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc':
-            archive.write(path, Path('custom_lpv_mpc')/path.relative_to(SOURCE))
-with ZipFile(ROOT/'assets/downloads/Custom_LPV_MPC.zip') as archive:
-    if archive.testzip() is not None:
-        raise SystemExit('Source archive verification failed.')
+for name in ['paths', 'errors', 'constraints']:
+    shutil.copy2(RESULTS/f'custom-lpv-{name}.webp', ROOT/'assets/images'/f'vehicle-tracking-{name}.webp')
+report['implementation'] = 'Precision Vehicle Tracking and Disturbance Recovery: reference-scheduled LPV-MPC with nonlinear kinematic bicycle plant'
+(ROOT/'assets/downloads/vehicle-tracking-metrics.json').write_text(json.dumps(report, indent=2)+'\n')
 data = json.loads((ROOT/'data/projects.json').read_text())
 project = next(p for p in data if p['slug'] == 'vehicle-mpc')
 labels = {'oval': 'Variable-speed oval', 'figure_eight': 'Figure-eight', 'lane_change': 'Disturbed lane change'}
@@ -32,4 +25,4 @@ project['resultsTable'] = {
              for name, m in report['scenarios'].items()]
 }
 (ROOT/'data/projects.json').write_text(json.dumps(data, indent=2, ensure_ascii=False)+'\n')
-print('Published custom plots, verified source bundle and measured result table.')
+print('Published vehicle tracking plots and measured result table.')

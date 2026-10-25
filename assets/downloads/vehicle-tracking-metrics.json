@@ -1,5 +1,5 @@
 {
-  "implementation": "Custom reference-scheduled LPV-MPC with nonlinear kinematic bicycle plant",
+  "implementation": "Precision Vehicle Tracking and Disturbance Recovery: reference-scheduled LPV-MPC with nonlinear kinematic bicycle plant",
   "settings": {
     "dt": 0.1,
     "horizon": 20,
