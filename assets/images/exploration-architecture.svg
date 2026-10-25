@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="420" viewBox="0 0 840 420" role="img" aria-labelledby="title desc">
+<title id="title">Cooperative exploration and target search</title>
+<desc id="desc">Odometry and IMU fusion provides local state estimation. The exploration cycle updates a shared LiDAR map, detects frontiers, assigns robots and executes navigation. Visual target detection runs alongside exploration.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8" fill="none" stroke="#567968" stroke-width="1.5"/></marker></defs>
+<rect width="840" height="420" fill="#edf2ec"/>
+<g font-family="Arial,Helvetica,sans-serif" fill="#192b2a">
+<text x="24" y="39" font-size="27" font-weight="700">Cooperative exploration and target search</text>
+<text x="24" y="65" font-size="17" fill="#52625e">One Husky and two Jackals share a map and divide the search.</text>
+<rect x="24" y="86" width="792" height="46" rx="6" fill="#dce9dd"/>
+<text x="42" y="115" font-size="21" fill="#164f42">Localization: odometry + IMU fusion with an EKF</text>
+<g fill="white" stroke="#c3d2c5" stroke-width="1.5">
+<rect x="24" y="159" width="180" height="72" rx="6"/><rect x="228" y="159" width="180" height="72" rx="6"/>
+<rect x="432" y="159" width="180" height="72" rx="6"/><rect x="636" y="159" width="180" height="72" rx="6"/>
+</g>
+<g font-size="22" font-weight="700">
+<text x="40" y="189">Shared map</text><text x="244" y="189">Frontiers</text><text x="448" y="189">Allocation</text><text x="652" y="189">Navigation</text>
+</g>
+<g font-size="17" fill="#52625e">
+<text x="40" y="215">LiDAR observations</text><text x="244" y="215">Wavefront search</text><text x="448" y="215">Hungarian method</text><text x="652" y="215">A* + MPPI</text>
+</g>
+<g stroke="#567968" stroke-width="2" fill="none" marker-end="url(#arrow)">
+<path d="M206 195 H222"/><path d="M410 195 H426"/><path d="M614 195 H630"/>
+<path d="M726 232 V269 H114 V237"/>
+</g>
+<text x="244" y="259" font-size="17" fill="#52625e">Map updates and task reallocation</text>
+<text x="24" y="302" font-size="14" letter-spacing="1.2" fill="#164f42">VISUAL TARGET SEARCH · RUNS DURING EXPLORATION</text>
+<rect x="24" y="316" width="384" height="59" rx="6" fill="white" stroke="#c3d2c5"/>
+<text x="42" y="352" font-size="22">RGB cameras → YOLO detection</text>
+<path d="M414 345 H444" stroke="#567968" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="452" y="316" width="364" height="59" rx="6" fill="#164f42"/>
+<text x="470" y="352" font-size="21" fill="white">Target found → mission complete</text>
+<text x="24" y="404" font-size="15" fill="#52625e">ROS 2 · Shared mapping · Coordinated search · GPU perception</text>
+</g></svg>

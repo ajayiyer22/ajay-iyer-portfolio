@@ -5,3 +5,13 @@
 @media(max-width:680px){.card-image{aspect-ratio:1.45}.card-image .diagram-preview{padding:20px}.card-image .diagram-title{margin-bottom:12px}.card-image .flow-line{font-size:1.15rem;padding:5px 0}.card-image .diagram-preview small{margin-top:8px}}
 
 .gallery-wide{grid-template-columns:1fr}.gallery-wide img{aspect-ratio:auto;max-height:none;padding:0}.results-scroll{overflow-x:auto;margin:24px 0}.results-table{width:100%;border-collapse:collapse;font-size:.86rem;text-align:left}.results-table caption{text-align:left;color:var(--muted);font-size:.8rem;margin-bottom:12px}.results-table th,.results-table td{padding:12px 14px;border-bottom:1px solid var(--line)}.results-table thead{background:var(--pale)}.results-table tbody th{font-weight:400}.results-table td{font-variant-numeric:tabular-nums}.results-scroll:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* Internship focus and source-linked autonomy presentation. */
+.availability{font-size:.86rem;line-height:1.65;border-left:3px solid var(--green);padding-left:15px;color:var(--muted);margin-top:24px}.availability strong{font-weight:600;color:var(--green)}
+.feature-visual:has(img[src$="exploration-architecture.svg"]){background:#edf2ec}.feature-visual>img[src$="exploration-architecture.svg"]{object-fit:contain;max-height:none;padding:16px}.case-cover>img[src$="exploration-architecture.svg"]{max-height:360px;padding:14px}
+@media(min-width:681px) and (max-width:1000px){.nav{gap:13px}.nav a{font-size:.78rem}}
+
+/* Compact project contributions. */
+.contribution-list{padding-left:1.25rem;margin:0;color:#445650;font-size:.97rem}.contribution-list li{padding-left:.3rem;margin-bottom:16px}.contribution-list li:last-child{margin-bottom:0}.contribution-list li::marker{color:var(--green)}.contribution-list strong{color:var(--ink)}
+
+.method-references{border-top:1px solid var(--line);padding-top:18px;margin-top:28px}.method-references summary{cursor:pointer;font-size:.85rem;color:var(--green);font-weight:600}.method-references .resource-list{margin-bottom:0}
