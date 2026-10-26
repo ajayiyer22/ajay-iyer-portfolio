@@ -8,7 +8,7 @@
 
 /* Internship focus and source-linked autonomy presentation. */
 .availability{font-size:.86rem;line-height:1.65;border-left:3px solid var(--green);padding-left:15px;color:var(--muted);margin-top:24px}.availability strong{font-weight:600;color:var(--green)}
-.feature-visual:has(img[src$="exploration-architecture.svg"]){background:#edf2ec}.feature-visual>img[src$="exploration-architecture.svg"]{object-fit:contain;max-height:none;padding:16px}.case-cover>img[src$="exploration-architecture.svg"]{max-height:360px;padding:14px}
+.feature-visual:has(img[src$="exploration-architecture.svg"]){background:#fff}.feature-visual>img[src$="exploration-architecture.svg"]{object-fit:contain;max-height:none;padding:16px}.case-cover>img[src$="exploration-architecture.svg"]{max-height:400px;padding:14px;background:#fff}
 @media(min-width:681px) and (max-width:1000px){.nav{gap:13px}.nav a{font-size:.78rem}}
 
 /* Compact project contributions. */
