@@ -1,6 +1,6 @@
 # Ajay Iyer — Robotics, Automation & Controls
 
-A static portfolio website with a homepage and nine project case studies. It works with GitHub Pages and requires no server-side software or Node build step.
+A static portfolio website with a homepage and nine project case studies. It works with GitHub Pages and requires no server-side software. Regenerating the pages uses Python; the published site is fully static.
 
 ## Preview locally
 
@@ -35,7 +35,7 @@ python3 tools/build_site.py
 python3 tools/check_site.py
 ```
 
-Both commands use the Python standard library. GitHub Pages serves the generated HTML directly; Python is only an optional editing tool.
+The builder and checker use the Python standard library. GitHub Pages serves the generated HTML directly; Python is only an optional editing tool.
 
 ## Content and attribution
 
@@ -83,3 +83,9 @@ See `../portfolio_project_sources/custom_lpv_mpc/README.md` for environment setu
 Project descriptions explain the research question, method choice, and supported outcome in concise bullets. Algorithm names and aliases were checked against original papers and official documentation; optional method-reference lists are stored in `data/projects.json` and displayed as collapsed details. These references explain the methods; personal contributions and results remain grounded in the supplied reports, resume, reviewed code, and project-owner confirmations.
 
 Terminology includes Hungarian/Kuhn–Munkres assignment, WFD, Smac 2D A*, MPPI, LPV-MPC, PREL-based SMC, Kabsch/ICP registration, Newton–Raphson IK, RRT*, PCA, PSO, Mahalanobis-gated association, and RANSAC. The IIT Bombay MATLAB implementation is explicitly described as adapted code and retains its original-author credit.
+
+## Project presentation
+
+All nine project pages present a short overview, focused technical contributions, results, and supporting visuals or resources. Project copy lives in `data/projects.json`. Equations and extended theory sections are omitted from the published pages; the site build does not require Node.js or KaTeX.
+
+Measured results retain their experimental or simulation context. The welding source snapshot predates the later process-feedback work.

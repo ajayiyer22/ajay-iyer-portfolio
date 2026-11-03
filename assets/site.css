@@ -15,3 +15,14 @@
 .contribution-list{padding-left:1.25rem;margin:0;color:#445650;font-size:.97rem}.contribution-list li{padding-left:.3rem;margin-bottom:16px}.contribution-list li:last-child{margin-bottom:0}.contribution-list li::marker{color:var(--green)}.contribution-list strong{color:var(--ink)}
 
 .method-references{border-top:1px solid var(--line);padding-top:18px;margin-top:28px}.method-references summary{cursor:pointer;font-size:.85rem;color:var(--green);font-weight:600}.method-references .resource-list{margin-bottom:0}
+
+.technical-note{border-top:1px solid var(--line);padding-top:16px;margin-top:22px}.technical-note h3{font-size:1.16rem;margin-top:0}.robotics-equation{background:var(--pale);padding:12px 16px;border-left:3px solid var(--green);font-size:1rem;overflow-wrap:anywhere}
+
+/* Typeset mathematics: scroll inside a formula, never widen the page. */
+.case-body{min-width:0}.robotics-equation{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:16px;background:#f0f4f0;overscroll-behavior-x:contain}.robotics-equation .katex-display{margin:.3em 0;text-align:left}.robotics-equation .katex-display>.katex{text-align:left}.robotics-equation .katex{font-size:1.1em}.equation-symbols{font-size:.86rem;line-height:1.7;color:var(--muted);margin-top:10px}.theory-scope{padding:14px 18px;border-left:3px solid var(--green);background:var(--pale);font-size:.92rem}.robotics-equation:focus-visible{outline:2px solid var(--green);outline-offset:3px}@media(max-width:680px){.robotics-equation{padding:12px}.robotics-equation .katex{font-size:.98em}}@media print{.robotics-equation{overflow:visible}.technical-note{break-inside:avoid}}
+
+.technical-note h2{font-size:1.6rem;margin-top:0;letter-spacing:-.02em}.case-nav a{line-height:1.45}
+
+.technical-details{margin-top:1rem}.technical-details summary{cursor:pointer;color:var(--accent, #285c50);font-weight:600}.technical-details[open] summary{margin-bottom:1rem}
+
+.contribution-list{padding-left:1.25rem}.contribution-list li{margin-bottom:.8rem;line-height:1.7}
