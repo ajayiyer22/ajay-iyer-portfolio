@@ -79,7 +79,7 @@ def homepage():
     body+='''</div><details class="extra-work"><summary>Earlier projects & demonstrations</summary><div class="extra-grid"><div><h3>UAV modeling and control</h3><p>A 2019 control-systems course project exploring UAV dynamics and control in MATLAB. The original simulation demonstration is available below.</p><a class="text-link" href="https://drive.google.com/file/d/1HM16QL9dJMWermskILlDSCBvRlfYO1c8/view">Open drone-control demonstration ↗</a></div><div><h3>Industrial and embedded control</h3><p>Earlier internships included PID and ON–OFF control for an absorption heat transformer at TU Berlin, PLC–LabVIEW communication, and a seat-stabilization prototype at NITIE.</p><a class="text-link" href="#earlier-experience">See earlier experience ↓</a></div></div><figure class="media-demo"><video controls preload="none" aria-label="UAV control simulation"><source src="images/drone_control%20(1080p).mp4" type="video/mp4">Your browser does not support video. <a href="images/drone_control%20(1080p).mp4">Download the demonstration.</a></video><figcaption>UAV control simulation · 2019 course project.</figcaption></figure></details></div></section>
 <section class="section" id="experience"><div class="container"><div class="section-heading"><div><p class="eyebrow">03 / Experience</p><h2>Research & industry.</h2></div><a class="text-link" href="assets/documents/Ajay_Iyer_Resume.pdf">Read the full resume ↗</a></div>'''
     rows=[
-      ('Aug 2026 – Present','Graduate Researcher','Texas A&M · Dr. Srikanth Saripalli','Investigating cooperative exploration and target search through EKF sensor fusion, shared mapping, balanced Hungarian allocation, and A* / MPPI navigation. Ongoing research focuses on capability-aware coordination and semantic viewpoint selection.','frontier-exploration'),
+      ('Aug 2026 – Present','Graduate Researcher','Texas A&M · Dr. Srikanth Saripalli','Scaling a Jackal exploration pipeline to a coordinated Husky-and-two-Jackal team. Integrated SLAM scan matching and EKF odometry estimation for localization, with shared mapping, Hungarian frontier allocation and independent robot navigation supporting cooperative exploration. Ongoing research focuses on capability-aware coordination and semantic viewpoint selection.','frontier-exploration'),
       ('Aug 2025 – Jul 2026','Graduate Research Assistant','Texas A&M · Dr. Reza Langari','Developed ROS 2 perception and Frenet trajectory planning for rural roads, integrating camera, LiDAR and radar processing. Built a separate OpenStreetMap driver-assistance prototype and analyzed visual-feature redundancy in driving models.','autonomous-vehicles'),
       ('Aug 2024 – Aug 2025','Graduate Research Assistant','Texas A&M · Dr. Prabhakar Pagilla','Developed a workflow from part registration to planned torch motion and synchronized welding. Later work connected infrared monitoring to process feedback.','welding-automation'),
       ('Jun 2021 – Jun 2023','Robotics Engineer','MIKO · Mumbai, India','Applied system identification and feedback control to expressive articulation and self-balancing robots, and connected audio direction estimates to yaw control.','miko-robotics')]
@@ -108,7 +108,7 @@ def casepage(p, next_p):
 
     if p.get('benchmark'):body+=f'<a href="#evaluation">{e(p["benchmark"]["title"])}</a>'
     if p.get('gallery'):body+='<a href="#gallery">Project images</a>'
-    if p.get('video'):body+='<a href="#demo">Demonstration</a>'
+    if p.get('video') or p.get('externalVideo'):body+='<a href="#demo">Demonstration</a>'
     if p.get('resources'):body+='<a href="#resources">Read more</a>'
     body+='</nav><div class="case-body">'
     body+=f'<section id="challenge"><h2>{challenge_title}</h2><p>{e(p["challenge"])}</p>'
@@ -142,6 +142,16 @@ def casepage(p, next_p):
         for file,alt,caption in p['gallery']:
             body+=f'<figure><a href="../assets/images/{e(file)}" aria-label="View full-size image: {e(alt)}"><img loading="lazy" src="../assets/images/{e(file)}" alt="{e(alt)}"></a><figcaption>{e(caption)}</figcaption></figure>'
         body+='</div></section>'
+    if p.get('externalVideo'):
+        video=p['externalVideo']
+        url=e(video['url'])
+        body+='<section id="demo"><h2>Jackal hardware demonstration</h2>'
+        if p.get('videoDescription'):body+=f'<p>{e(p["videoDescription"])}</p>'
+        if video.get('youtubeId'):
+            body+=f'<div class="demo-player"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/{e(video["youtubeId"])}" title="{e(video["title"])}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>'
+        elif video.get('preview'):
+            body+=f'<a class="demo-preview" href="{url}" target="_blank" rel="noopener noreferrer" aria-label="{e(video["title"])} (opens in a new tab)"><img loading="lazy" src="../assets/images/{e(video["preview"])}" alt="{e(video["previewAlt"])}"><span aria-hidden="true">▶ Watch demonstration ↗</span></a>'
+        body+=f'<p><a class="text-link" href="{url}" target="_blank" rel="noopener noreferrer">{e(video["title"])} ↗</a></p></section>'
     if p.get('video'):
         vid=p['video'];title=e(p['videoTitle'])
         body+=f'''<section id="demo"><h2>Watch the system</h2><div class="video-shell"><a class="video-button" href="https://drive.google.com/file/d/{vid}/view" target="_blank" rel="noopener noreferrer">▶ Watch {title.lower()} ↗</a></div><p class="video-fallback">Opens the video on Google Drive in a new tab.</p></section>'''

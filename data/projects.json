@@ -8,37 +8,45 @@
     "role": "Graduate Researcher · Advisor: Dr. Srikanth Saripalli",
     "date": "Aug 2026 – Present",
     "status": "Doctoral research · Ongoing",
-    "summary": "Multi-robot exploration integrating shared mapping, frontier allocation, navigation and visual target detection.",
+    "summary": "Scaling autonomous exploration from a physical Jackal to a coordinated Husky-and-Jackal team for exploration and visual target search.",
     "stack": [
       "C++ / Python",
       "ROS 2",
-      "EKF sensor fusion",
+      "SLAM / EKF odometry",
       "WFD / Hungarian",
-      "A* / MPPI",
+      "A* / MPPI / DWB",
       "PyTorch / CUDA"
     ],
-    "challenge": "A multi-robot exploration system for coordinating a Husky and two Jackals in an initially unknown environment. Shared mapping connects frontier selection, task allocation and autonomous navigation, while visual detection supports target search.",
+    "challenge": "Current research scales a single-robot exploration pipeline to a multi-robot system. A physical Jackal provides the hardware implementation of mapping, frontier selection and autonomous navigation. The multi-robot extension coordinates one Husky and two Jackals in simulation: their LiDAR observations update a shared occupancy map, frontier tasks are distributed across the team, and each robot navigates to its assigned destinations while its camera supports visual target search.",
     "contributions": [
       [
         "Mapping and localization",
-        "Integrated Extended Kalman Filter localization using odometry and inertial measurements, with LiDAR observations contributing to a shared occupancy map. This provides the motion estimates and spatial information needed for coordinated exploration."
+        "Integrated SLAM scan matching with Extended Kalman Filter (EKF) odometry estimation for robot localization. The EKF fuses wheel odometry and inertial measurements to provide a continuous estimate of local motion, while SLAM matches LiDAR scans against the evolving map to estimate the robot’s map-relative pose and correct accumulated odometry drift. Together, these estimates place LiDAR observations in a common map frame, supporting shared mapping, frontier allocation and autonomous navigation."
       ],
       [
-        "Task allocation",
-        "Implemented Wavefront Frontier Detection to identify unexplored boundaries and balanced Hungarian assignment to distribute destinations. Allocation uses Euclidean travel-cost estimates and per-robot capacities, with reassignment when navigation goals cannot be completed."
+        "Jackal hardware deployment",
+        "Deployed frontier exploration on a Clearpath Jackal J100 with a VLP-16 LiDAR and ROS 2 Jazzy. Connected SLAM-based mapping, WFD and nearest-eligible-frontier selection to Nav2 Smac A* planning and DWB local control. Added collision-checked heading alignment, footprint and costmap checks, and reassignment after failed goals to support exploration in the lab."
+      ],
+      [
+        "Obstacle-aware navigation",
+        "Implemented a custom global costmap layer that blocks high-cost cells from global planning, and a DWB critic that lowers the allowed forward speed as predicted footprint obstacle costs increase. Recorded paths, commands, odometry, transforms and task state for navigation inspection."
+      ],
+      [
+        "Scaling exploration to multiple robots",
+        "Extended single-robot frontier selection to team-level allocation. Wavefront Frontier Detection identifies unexplored boundaries on the shared map, and balanced Hungarian assignment distributes frontier destinations among the Husky and two Jackals using Euclidean travel-cost estimates and per-robot task capacities. Each robot follows its distance-ordered queue through its own Nav2 stack, contributes new observations to the shared map, and receives updated assignments as exploration progresses or navigation fails."
       ],
       [
         "Navigation and visual search",
-        "Connected cost-aware A* global planning with Model Predictive Path Integral local control. Integrated pretrained YOLO inference through PyTorch/CUDA, confirming detections across successive frames before reporting a target."
+        "Connected cost-aware A* global planning with MPPI local control for each simulated robot. Integrated pretrained YOLO inference through PyTorch/CUDA across the team’s RGB camera streams, confirming a target across successive frames before ending the search mission."
       ]
     ],
-    "outcome": "Integrated localization, mapping, allocation, navigation and target detection. Ongoing research addresses capability-aware allocation and semantic viewpoint selection.",
+    "outcome": "The single-Jackal hardware implementation provides a practical foundation for scaling exploration to a robot team. The multi-robot simulation integrates shared mapping, balanced frontier allocation, independent navigation and visual target detection for one Husky and two Jackals. Current research builds on this system to investigate capability-aware allocation and semantic viewpoint selection. The linked video demonstrates the single-Jackal hardware implementation.",
     "resources": [],
     "sourceNote": "",
     "shortTitle": "Multi-robot exploration and search",
     "image": "exploration-architecture.svg",
-    "imageAlt": "Exploration workflow: EKF localization supports shared LiDAR mapping, wavefront frontier detection, Hungarian task allocation, and A* planning and MPPI control. Camera-based target detection runs alongside exploration.",
-    "imageCaption": "Shared mapping and task allocation coordinate exploration while visual detection identifies the target.",
+    "imageAlt": "Cooperative exploration workflow: SLAM scan matching and EKF odometry estimation support localization and shared LiDAR mapping, followed by wavefront frontier detection, Hungarian task allocation, and A* planning with MPPI control. Camera-based target detection runs alongside exploration.",
+    "imageCaption": "Scaling exploration to a robot team: shared observations update the map, Hungarian assignment distributes frontier tasks, and each robot executes its own navigation goals.",
     "challengeTitle": "Overview",
     "outcomeTitle": "Results and ongoing work",
     "methodReferences": [
@@ -58,7 +66,13 @@
         "Model Predictive Path Integral (MPPI) control",
         "https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/controller_plugins/mppi_controller/configuring_mppic/"
       ]
-    ]
+    ],
+    "videoDescription": "The video shows the single-Jackal hardware implementation that supports the current extension to cooperative multi-robot exploration.",
+    "externalVideo": {
+      "url": "https://youtu.be/m1SCAViXkgI",
+      "title": "Watch Jackal hardware exploration",
+      "youtubeId": "m1SCAViXkgI"
+    }
   },
   {
     "slug": "autonomous-vehicles",
