@@ -45,7 +45,7 @@ def visual(p, prefix='', loading='lazy'):
         'welding': ('Robotic welding', ['Register the workpiece', 'Plan the torch motion', 'Execute & monitor'], 'UR10e · Miller · Python / ROS'),
         'miko': ('Physical robot control', ['Model the dynamics', 'Close the feedback loop', 'Test the motion'], 'Articulation · Balance · Interaction'),
         'mpc': ('Predictive control', ['Predict vehicle motion', 'Optimize within limits', 'Apply & repeat'], '4 states · 20-step horizon · Python'),
-        'frontier': ('Ongoing research', ['Observe the scene', 'Map semantic value', 'Choose the next view'], 'ROS 2 · Husky + Jackal'),
+        'frontier': ('Research scope', ['Observe the scene', 'Map semantic value', 'Choose the next view'], 'ROS 2 · Husky + Jackal'),
         'needle': ('Needle-tip estimation', ['Extract visual features', 'Estimate the state', 'Compare with ground truth'], 'Ultrasound · Kalman filtering')
     }
     label, steps, note = data[p['visual']]
@@ -79,7 +79,7 @@ def homepage():
     body+='''</div><details class="extra-work"><summary>Earlier projects & demonstrations</summary><div class="extra-grid"><div><h3>UAV modeling and control</h3><p>A 2019 control-systems course project exploring UAV dynamics and control in MATLAB. The original simulation demonstration is available below.</p><a class="text-link" href="https://drive.google.com/file/d/1HM16QL9dJMWermskILlDSCBvRlfYO1c8/view">Open drone-control demonstration ↗</a></div><div><h3>Industrial and embedded control</h3><p>Earlier internships included PID and ON–OFF control for an absorption heat transformer at TU Berlin, PLC–LabVIEW communication, and a seat-stabilization prototype at NITIE.</p><a class="text-link" href="#earlier-experience">See earlier experience ↓</a></div></div><figure class="media-demo"><video controls preload="none" aria-label="UAV control simulation"><source src="images/drone_control%20(1080p).mp4" type="video/mp4">Your browser does not support video. <a href="images/drone_control%20(1080p).mp4">Download the demonstration.</a></video><figcaption>UAV control simulation · 2019 course project.</figcaption></figure></details></div></section>
 <section class="section" id="experience"><div class="container"><div class="section-heading"><div><p class="eyebrow">03 / Experience</p><h2>Research & industry.</h2></div><a class="text-link" href="assets/documents/Ajay_Iyer_Resume.pdf">Read the full resume ↗</a></div>'''
     rows=[
-      ('Aug 2026 – Present','Graduate Researcher','Texas A&M · Dr. Srikanth Saripalli','Scaling a Jackal exploration pipeline to a coordinated Husky-and-two-Jackal team. Integrated SLAM scan matching and EKF odometry estimation for localization, with shared mapping, Hungarian frontier allocation and independent robot navigation supporting cooperative exploration. Ongoing research focuses on capability-aware coordination and semantic viewpoint selection.','frontier-exploration'),
+      ('Aug 2026 – Present','Graduate Researcher','Texas A&M · Dr. Srikanth Saripalli','Developing cooperative target search from a physical Jackal exploration pipeline and a Husky-and-two-Jackal simulation. Integrated SLAM scan matching, EKF odometry estimation, shared mapping and Hungarian frontier allocation. The research scope investigates efficient exploration of unknown outdoor environments through task allocation based on robot mobility and sensing capabilities.','frontier-exploration'),
       ('Aug 2025 – Jul 2026','Graduate Research Assistant','Texas A&M · Dr. Reza Langari','Developed ROS 2 perception and Frenet trajectory planning for rural roads, integrating camera, LiDAR and radar processing. Built a separate OpenStreetMap driver-assistance prototype and analyzed visual-feature redundancy in driving models.','autonomous-vehicles'),
       ('Aug 2024 – Aug 2025','Graduate Research Assistant','Texas A&M · Dr. Prabhakar Pagilla','Developed a workflow from part registration to planned torch motion and synchronized welding. Later work connected infrared monitoring to process feedback.','welding-automation'),
       ('Jun 2021 – Jun 2023','Robotics Engineer','MIKO · Mumbai, India','Applied system identification and feedback control to expressive articulation and self-balancing robots, and connected audio direction estimates to yaw control.','miko-robotics')]
@@ -106,6 +106,7 @@ def casepage(p, next_p):
     body+='<a href="#contributions">Technical contributions</a>'
     body+=f'<a href="#outcome">{outcome_title}</a>'
 
+    if p.get('researchScope'):body+='<a href="#research-scope">Research scope</a>'
     if p.get('benchmark'):body+=f'<a href="#evaluation">{e(p["benchmark"]["title"])}</a>'
     if p.get('gallery'):body+='<a href="#gallery">Project images</a>'
     if p.get('video') or p.get('externalVideo'):body+='<a href="#demo">Demonstration</a>'
@@ -127,6 +128,14 @@ def casepage(p, next_p):
             body+=f'<tr><th scope="row">{e(row[0])}</th>'+''.join(f'<td>{e(v)}</td>' for v in row[1:])+'</tr>'
         body+='</tbody></table></div>'
     body+='</section>'
+    if p.get('researchScope'):
+        scope=p['researchScope']
+        body+=f'<section id="research-scope"><h2>Research scope</h2><p>{e(scope["overview"])}</p>'
+        if scope['directions']:body+='<ul class="contribution-list">'
+        for title, text in scope['directions']:
+            body+=f'<li><strong>{e(title)}.</strong> {e(text)}</li>'
+        if scope['directions']:body+='</ul>'
+        body+='</section>'
     if p.get('benchmark'):
         b=p['benchmark']
         body+=f'<section id="evaluation"><h2>{e(b["title"])}</h2><p>{e(b["text"])}</p>'

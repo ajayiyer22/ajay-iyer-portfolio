@@ -17,7 +17,7 @@
       "A* / MPPI / DWB",
       "PyTorch / CUDA"
     ],
-    "challenge": "Current research scales a single-robot exploration pipeline to a multi-robot system. A physical Jackal provides the hardware implementation of mapping, frontier selection and autonomous navigation. The multi-robot extension coordinates one Husky and two Jackals in simulation: their LiDAR observations update a shared occupancy map, frontier tasks are distributed across the team, and each robot navigates to its assigned destinations while its camera supports visual target search.",
+    "challenge": "Cooperative search in an initially unknown indoor environment requires robots to decide which unexplored regions to visit and which robot can reach them. This project develops a shared-mapping and frontier-allocation framework that scales from a physical Jackal to a heterogeneous robot team. The search begins with a specified target class and no known target location. Robot mobility, sensing capabilities and travel cost define the scope of exploration and coordination.",
     "contributions": [
       [
         "Mapping and localization",
@@ -40,7 +40,7 @@
         "Connected cost-aware A* global planning with MPPI local control for each simulated robot. Integrated pretrained YOLO inference through PyTorch/CUDA across the team’s RGB camera streams, confirming a target across successive frames before ending the search mission."
       ]
     ],
-    "outcome": "The single-Jackal hardware implementation provides a practical foundation for scaling exploration to a robot team. The multi-robot simulation integrates shared mapping, balanced frontier allocation, independent navigation and visual target detection for one Husky and two Jackals. Current research builds on this system to investigate capability-aware allocation and semantic viewpoint selection. The linked video demonstrates the single-Jackal hardware implementation.",
+    "outcome": "The physical Jackal demonstrates SLAM-based mapping, frontier selection and autonomous navigation in the lab. The multi-robot simulation connects shared occupancy mapping, balanced Hungarian allocation, independent Nav2 navigation and visual target detection for one Husky and two Jackals. These implementations provide the experimental foundation for the heterogeneous search study. The video below shows the single-Jackal hardware deployment.",
     "resources": [],
     "sourceNote": "",
     "shortTitle": "Multi-robot exploration and search",
@@ -48,7 +48,7 @@
     "imageAlt": "Cooperative exploration workflow: SLAM scan matching and EKF odometry estimation support localization and shared LiDAR mapping, followed by wavefront frontier detection, Hungarian task allocation, and A* planning with MPPI control. Camera-based target detection runs alongside exploration.",
     "imageCaption": "Scaling exploration to a robot team: shared observations update the map, Hungarian assignment distributes frontier tasks, and each robot executes its own navigation goals.",
     "challengeTitle": "Overview",
-    "outcomeTitle": "Results and ongoing work",
+    "outcomeTitle": "Implementation progress",
     "methodReferences": [
       [
         "Keidar & Kaminka · Wavefront Frontier Detector",
@@ -72,6 +72,10 @@
       "url": "https://youtu.be/m1SCAViXkgI",
       "title": "Watch Jackal hardware exploration",
       "youtubeId": "m1SCAViXkgI"
+    },
+    "researchScope": {
+      "overview": "Investigating how a heterogeneous robot team can efficiently explore an unknown outdoor environment through capability-based task allocation. Exploration tasks are assigned according to each robot’s mobility and sensing capabilities and the access requirements of unexplored regions.",
+      "directions": []
     }
   },
   {
