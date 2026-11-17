@@ -12,7 +12,7 @@
     "stack": [
       "C++ / Python",
       "ROS 2",
-      "SLAM / EKF odometry",
+      "AMCL / EKF odometry",
       "WFD / Hungarian",
       "A* / MPPI / DWB",
       "PyTorch / CUDA"
@@ -21,7 +21,7 @@
     "contributions": [
       [
         "Mapping and localization",
-        "Integrated SLAM scan matching with Extended Kalman Filter (EKF) odometry estimation for robot localization. The EKF fuses wheel odometry and inertial measurements to provide a continuous estimate of local motion, while SLAM matches LiDAR scans against the evolving map to estimate the robot’s map-relative pose and correct accumulated odometry drift. Together, these estimates place LiDAR observations in a common map frame, supporting shared mapping, frontier allocation and autonomous navigation."
+        "Integrated Adaptive Monte Carlo Localization (AMCL) with EKF-based odometry estimation for robot localization. Wheel encoder measurements provide wheel odometry, which is fused with IMU measurements through an Extended Kalman Filter to estimate continuous local motion. AMCL uses this odometry and LiDAR observations in a particle filter to estimate the robot’s position and heading within an existing occupancy map. SLAM-based map generation supports the separate exploration and mapping workflow."
       ],
       [
         "Jackal hardware deployment",
@@ -45,7 +45,7 @@
     "sourceNote": "",
     "shortTitle": "Multi-robot exploration and search",
     "image": "exploration-architecture.svg",
-    "imageAlt": "Cooperative exploration workflow: SLAM scan matching and EKF odometry estimation support localization and shared LiDAR mapping, followed by wavefront frontier detection, Hungarian task allocation, and A* planning with MPPI control. Camera-based target detection runs alongside exploration.",
+    "imageAlt": "Cooperative exploration workflow: AMCL provides localization within an existing map, supported by EKF fusion of wheel encoder odometry and IMU measurements. Shared LiDAR mapping, wavefront frontier detection, Hungarian task allocation and A* planning with MPPI control support exploration. Camera-based target detection runs alongside exploration.",
     "imageCaption": "Scaling exploration to a robot team: shared observations update the map, Hungarian assignment distributes frontier tasks, and each robot executes its own navigation goals.",
     "challengeTitle": "Overview",
     "outcomeTitle": "Implementation progress",
