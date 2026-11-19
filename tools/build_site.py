@@ -103,7 +103,7 @@ def casepage(p, next_p):
     body+=f'''<main id="main"><div class="container"><header class="case-header"><a class="back-link" href="../index.html#portfolio">← All projects</a><p class="eyebrow">{e(p['eyebrow'])}</p><h1>{e(p['title'])}</h1><p class="dek">{e(p['summary'])}</p><div class="case-meta"><div><strong>Organization</strong>{e(p['organization'])}</div><div><strong>Role & period</strong>{e(p['role'])}<br>{e(p['date'])}</div><div><strong>Project context</strong>{e(p['status'])}</div></div>{tags(p)}</header><figure class="case-cover">{visual(p,prefix,'eager')}'''
     if p.get('imageCaption'):body+=f'<figcaption>{e(p["imageCaption"])}</figcaption>'
     body+=f'</figure><div class="case-layout"><nav class="case-nav" aria-label="On this page"><h2>In this project</h2><a href="#challenge">{challenge_title}</a>'
-    body+='<a href="#contributions">Technical contributions</a>'
+    body+='<a href="#contributions">Approach & implementation</a>'
     body+=f'<a href="#outcome">{outcome_title}</a>'
 
     if p.get('researchScope'):body+='<a href="#research-scope">Research scope</a>'
@@ -115,7 +115,7 @@ def casepage(p, next_p):
     body+=f'<section id="challenge"><h2>{challenge_title}</h2><p>{e(p["challenge"])}</p>'
     if p.get('steps'):body+='<ol class="process" aria-label="System workflow">'+''.join(f'<li>{e(step)}</li>' for step in p['steps'])+'</ol>'
     body+='</section>'
-    body+='<section id="contributions"><h2>Technical contributions</h2><ul class="contribution-list">'
+    body+='<section id="contributions"><h2>Approach & implementation</h2><ul class="contribution-list">'
     for title, text in p.get('contributions', []):
         body+=f'<li><strong>{e(title)}.</strong> {e(text)}</li>'
     body+='</ul></section>'

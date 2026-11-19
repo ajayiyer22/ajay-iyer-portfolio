@@ -8,7 +8,7 @@
     "role": "Graduate Researcher · Advisor: Dr. Srikanth Saripalli",
     "date": "Aug 2026 – Present",
     "status": "Doctoral research · Ongoing",
-    "summary": "Scaling autonomous exploration from a physical Jackal to a coordinated Husky-and-Jackal team for exploration and visual target search.",
+    "summary": "Built frontier exploration on a physical Jackal and extended the pipeline to coordinated mapping, task allocation and target search with one Husky and two Jackals in simulation.",
     "stack": [
       "C++ / Python",
       "ROS 2",
@@ -17,38 +17,34 @@
       "A* / MPPI / DWB",
       "PyTorch / CUDA"
     ],
-    "challenge": "Cooperative search in an initially unknown indoor environment requires robots to decide which unexplored regions to visit and which robot can reach them. This project develops a shared-mapping and frontier-allocation framework that scales from a physical Jackal to a heterogeneous robot team. The search begins with a specified target class and no known target location. Robot mobility, sensing capabilities and travel cost define the scope of exploration and coordination.",
+    "challenge": "A robot exploring an unknown environment must map free space, choose reachable frontiers and navigate safely. With multiple robots, the team must also divide work as the map changes. I first developed and demonstrated the pipeline on a Jackal, then extended its mapping, allocation and search components to a simulated Husky and two Jackals.",
     "contributions": [
       [
-        "Mapping and localization",
-        "Integrated Adaptive Monte Carlo Localization (AMCL) with EKF-based odometry estimation for robot localization. Wheel encoder measurements provide wheel odometry, which is fused with IMU measurements through an Extended Kalman Filter to estimate continuous local motion. AMCL uses this odometry and LiDAR observations in a particle filter to estimate the robot’s position and heading within an existing occupancy map. SLAM-based map generation supports the separate exploration and mapping workflow."
+        "Jackal exploration",
+        "Deployed a VLP-16 equipped Jackal J100 with LiDAR mapping, Wavefront Frontier Detection and nearest eligible frontier selection. Used Nav2 Smac A* and DWB to navigate in the lab, with heading alignment and checks for unreachable or failed goals."
       ],
       [
-        "Jackal hardware deployment",
-        "Deployed frontier exploration on a Clearpath Jackal J100 with a VLP-16 LiDAR and ROS 2 Jazzy. Connected SLAM-based mapping, WFD and nearest-eligible-frontier selection to Nav2 Smac A* planning and DWB local control. Added collision-checked heading alignment, footprint and costmap checks, and reassignment after failed goals to support exploration in the lab."
+        "Localization and safe navigation",
+        "Used wheel encoder odometry fused with IMU measurements by an EKF for local motion estimates. AMCL estimates pose from LiDAR against an existing map; SLAM Toolbox supports map building in the exploration workflow. Added a costmap layer to reject high cost cells and a DWB critic to slow forward motion near obstacles."
       ],
       [
-        "Obstacle-aware navigation",
-        "Implemented a custom global costmap layer that blocks high-cost cells from global planning, and a DWB critic that lowers the allowed forward speed as predicted footprint obstacle costs increase. Recorded paths, commands, odometry, transforms and task state for navigation inspection."
+        "Cooperative exploration",
+        "Built a shared occupancy map and used balanced Hungarian assignment to distribute detected frontiers among one Husky and two Jackals in simulation. Each robot receives a distance ordered goal queue, navigates with its own Nav2 stack and contributes observations that trigger updated assignments."
       ],
       [
-        "Scaling exploration to multiple robots",
-        "Extended single-robot frontier selection to team-level allocation. Wavefront Frontier Detection identifies unexplored boundaries on the shared map, and balanced Hungarian assignment distributes frontier destinations among the Husky and two Jackals using Euclidean travel-cost estimates and per-robot task capacities. Each robot follows its distance-ordered queue through its own Nav2 stack, contributes new observations to the shared map, and receives updated assignments as exploration progresses or navigation fails."
-      ],
-      [
-        "Navigation and visual search",
-        "Connected cost-aware A* global planning with MPPI local control for each simulated robot. Integrated pretrained YOLO inference through PyTorch/CUDA across the team’s RGB camera streams, confirming a target across successive frames before ending the search mission."
+        "Visual target search",
+        "Connected Smac A* and MPPI navigation with pretrained YOLO inference on the simulated robots’ camera streams. Required detections across successive frames before reporting the target and ending the search."
       ]
     ],
-    "outcome": "The physical Jackal demonstrates SLAM-based mapping, frontier selection and autonomous navigation in the lab. The multi-robot simulation connects shared occupancy mapping, balanced Hungarian allocation, independent Nav2 navigation and visual target detection for one Husky and two Jackals. These implementations provide the experimental foundation for the heterogeneous search study. The video below shows the single-Jackal hardware deployment.",
+    "outcome": "Demonstrated autonomous frontier exploration on a physical Jackal. In simulation, the Husky and two Jackals share map updates, divide frontier tasks and run visual target detection. The linked video shows the Jackal hardware demonstration.",
     "resources": [],
     "sourceNote": "",
     "shortTitle": "Multi-robot exploration and search",
     "image": "exploration-architecture.svg",
     "imageAlt": "Cooperative exploration workflow: AMCL provides localization within an existing map, supported by EKF fusion of wheel encoder odometry and IMU measurements. Shared LiDAR mapping, wavefront frontier detection, Hungarian task allocation and A* planning with MPPI control support exploration. Camera-based target detection runs alongside exploration.",
     "imageCaption": "Scaling exploration to a robot team: shared observations update the map, Hungarian assignment distributes frontier tasks, and each robot executes its own navigation goals.",
-    "challengeTitle": "Overview",
-    "outcomeTitle": "Implementation progress",
+    "challengeTitle": "Problem & goal",
+    "outcomeTitle": "Implementation & results",
     "methodReferences": [
       [
         "Keidar & Kaminka · Wavefront Frontier Detector",
@@ -87,7 +83,7 @@
     "role": "Graduate Research Assistant · Advisor: Dr. Reza Langari",
     "date": "Aug 2025 – Jul 2026",
     "status": "Vehicle-oriented ROS 2 implementation · recorded-data and simulation workflows",
-    "summary": "ROS 2 perception and trajectory planning for marked and unmarked rural roads, with a complementary map-based driver-assistance prototype.",
+    "summary": "Developed ROS 2 road perception and Frenet trajectory planning for marked and unmarked rural roads.",
     "stack": [
       "ROS 2",
       "Frenet planning",
@@ -100,30 +96,22 @@
     "image": "ava-vehicle.webp",
     "imageAlt": "Annotated AVA research vehicle with its sensor locations",
     "imageCaption": "AVA research vehicle and sensor layout. Project scope: perception and motion planning.",
-    "challenge": "Rural-road driving requires useful road boundaries even when lane markings are weak or absent. This work combines camera and LiDAR perception with road-relative trajectory planning, alongside a separate OpenStreetMap prototype that provides route context and driver alerts from recorded vehicle positions.",
+    "challenge": "On rural roads, lane markings can be faint or absent, making it difficult to define a safe driving corridor. I developed a perception and planning workflow to estimate road boundaries and generate local trajectories. I also built a separate OpenStreetMap driver assistance prototype and studied visual feature redundancy.",
     "contributions": [
       [
-        "Road and lane perception",
-        "Integrated CLRerNet lane detection, SAM2 image segmentation and SphereFormer LiDAR semantic segmentation. Projected LiDAR measurements into the camera frame to recover spatial road boundaries; extracted left/right road edges from segmented point clouds for downstream processing."
+        "Road perception",
+        "Integrated CLRerNet, SAM2 and SphereFormer to detect lane markings and segment road surfaces from camera and LiDAR data. Projected LiDAR into the camera frame and extracted left and right road edges from segmented point clouds."
       ],
       [
-        "Multisensor object processing",
-        "Integrated YOLOv9 detections with synchronized LiDAR and radar observations to associate image objects with spatial detections. ROS 2 messages carry object and boundary outputs, with visualization supporting inspection of the perception pipeline."
+        "Object association and planning",
+        "Associated YOLOv9 camera detections with synchronized LiDAR and radar observations. Generated Frenet trajectories using lateral quintic and longitudinal quartic polynomials, then selected references by smoothness, duration, offset and speed error."
       ],
       [
-        "Local trajectory planning",
-        "Developed Frenet-frame candidate generation with lateral quintic and longitudinal quartic polynomials. Weighted costs balance smoothness, duration, lateral offset and target-speed error; a reference-generation node provides pose, speed and curvature targets to downstream control. Separate configurations support GPS-reference and perception-assisted planning."
-      ],
-      [
-        "Map-based driver assistance",
-        "Built an OpenStreetMap route-analysis and driver-information workflow using recorded odometry. Route-segment matching drives intersection and curve warnings, lane and speed-limit displays, and rule-based speed advisories, with explicit labels for inferred map attributes. This prototype is separate from the trajectory-planner control loop."
-      ],
-      [
-        "Visual-representation analysis",
-        "Applied Principal Component Analysis to OpenDriveVLA features from 6,019 nuScenes samples. The study measures feature redundancy to inform further investigation of compact visual representations."
+        "Related prototypes",
+        "Built an OpenStreetMap dashboard that matches recorded odometry to route segments and provides curve, intersection and speed advisories. Separately applied PCA to OpenDriveVLA features from 6,019 nuScenes samples to measure visual representation redundancy."
       ]
     ],
-    "outcome": "The implementation provides ROS 2 modules for road perception, multisensor object processing and local trajectory references, plus a separate recorded-odometry driver-assistance dashboard. In the feature-analysis study, approximately ten principal components retained 80% of scene-token variance and 97% of map-token variance.",
+    "outcome": "Delivered ROS 2 modules for road and object perception and local trajectory references, plus the separate driver assistance prototype. In the PCA study, about ten components retained 80% of scene token variance and 97% of map token variance.",
     "gallery": [
       [
         "ava-lanes.webp",
@@ -143,8 +131,8 @@
       ]
     ],
     "sourceNote": "Vehicle and baseline perception images courtesy of the AVA team’s technical overview. Implementation descriptions are grounded in the supplied perception vehicle-deployment, AVA planner and OSM driver-assistance source snapshots; the images show the earlier team baseline.",
-    "challengeTitle": "Overview",
-    "outcomeTitle": "Implementation and findings",
+    "challengeTitle": "Problem & goal",
+    "outcomeTitle": "Implementation & results",
     "methodReferences": [
       [
         "Honda & Uchida · CLRerNet and LaneIoU",
@@ -165,7 +153,7 @@
     "role": "Modeling, controller implementation & evaluation",
     "date": "2024 concept study · 2026 tracking and recovery study",
     "status": "Constrained tracking and recovery study",
-    "summary": "Constrained vehicle tracking using reference-scheduled model predictive control.",
+    "summary": "Designed a constrained vehicle tracking controller and evaluated its response to startup error and disturbance in simulation.",
     "stack": [
       "Python",
       "LPV-MPC",
@@ -174,22 +162,22 @@
       "NumPy / SciPy"
     ],
     "visual": "mpc",
-    "challenge": "A model predictive control study for vehicle trajectory tracking under steering, acceleration and speed constraints. A reference-scheduled prediction model is evaluated against a nonlinear vehicle simulation, including startup errors and external disturbances.",
+    "challenge": "A trajectory controller needs to track a changing path while respecting limits on steering, acceleration and speed. I tested a reference scheduled predictive controller against a nonlinear vehicle model on variable speed and disturbed trajectories.",
     "contributions": [
       [
-        "Prediction model",
-        "Formulated along-track, cross-track, heading and speed errors relative to a time-indexed reference. Scheduled the local prediction model using reference speed and curvature over a 20-step horizon."
+        "Model",
+        "Formulated along track, cross track, heading and speed errors against a time indexed reference. Scheduled the prediction model using reference speed and curvature over a 20 step horizon."
       ],
       [
-        "Constrained control",
-        "Implemented a sparse quadratic program using OSQP with steering, acceleration, command-rate and speed bounds. The controller applies the first optimized input and replans every 100 ms of simulated time."
+        "Control",
+        "Solved a sparse quadratic program with OSQP every 100 ms of simulated time. Constrained steering, acceleration, input changes and speed, applying the first optimized command at each step."
       ],
       [
-        "Validation",
-        "Evaluated variable-speed oval, figure-eight and disturbed lane-change scenarios using a nonlinear kinematic bicycle model. Measured tracking and recovery performance alongside independent checks of command and sampled-speed limits."
+        "Evaluation",
+        "Ran oval, figure eight and disturbed lane change scenarios with a nonlinear kinematic bicycle model. Measured tracking error and recovery, and independently checked command and sampled speed constraints."
       ]
     ],
-    "outcome": "All 1,520 optimization solves succeeded across three kinematic simulation scenarios. Position RMSE ranged from 0.289 to 0.396 m, including startup recovery; configured constraint checks passed.",
+    "outcome": "All 1,520 optimization solves succeeded across three simulated scenarios. Position RMSE ranged from 0.289 to 0.396 m, including startup recovery; configured constraint checks passed.",
     "steps": [
       "Measure tracking error",
       "Schedule prediction model",
@@ -274,8 +262,8 @@
       ]
     },
     "resourcesTitle": "Results and figures",
-    "challengeTitle": "Overview",
-    "outcomeTitle": "Results",
+    "challengeTitle": "Problem & goal",
+    "outcomeTitle": "Implementation & results",
     "methodReferences": [
       [
         "OSQP · Operator Splitting Quadratic Program solver",
@@ -292,7 +280,7 @@
     "role": "Graduate Research Assistant · Advisor: Dr. Prabhakar Pagilla",
     "date": "Aug 2024 – Aug 2025",
     "status": "Hardware integration · Pre-closed-loop implementation",
-    "summary": "CAD-guided robotic welding with part registration, torch-pose planning and coordinated execution.",
+    "summary": "Connected CAD part registration, torch path planning and welder commands in a UR10e welding workflow.",
     "stack": [
       "Rigid transforms / Kabsch",
       "Tool-pose geometry",
@@ -301,22 +289,22 @@
       "UR10e / Python"
     ],
     "visual": "welding",
-    "challenge": "A CAD-guided robotic welding platform that connects workpiece geometry to torch motion and welder commands. The documented implementation covers registration, planning and execution before the later closed-loop process-control extension.",
+    "challenge": "Automating a weld requires the planned seam in CAD to align with the physical workpiece, and torch motion to stay synchronized with the welding process. I developed a workflow connecting geometry selection, robot planning and execution.",
     "contributions": [
       [
-        "Registration and geometry",
-        "Developed a workflow for pairing CAD features with measured workpiece points and registering them to the robot frame. Selected seam geometry supplies welding targets, torch-orientation hints and approach/retreat waypoints."
+        "Registration",
+        "Paired measured workpiece points with CAD features to register the part in the robot frame. Used the selected seam to define weld targets, torch orientation and approach and retreat waypoints."
       ],
       [
-        "Motion generation",
-        "Integrated pose interpolation, MoveIt planning and trajectory timing based on the requested travel speed. Joint-motion diagnostics and reconstructed tool positions support inspection of the planned motion."
+        "Planning",
+        "Interpolated torch poses and used MoveIt to plan and time trajectories for a requested travel speed. Logged joint and reconstructed tool positions to inspect planned motion."
       ],
       [
-        "Operator interface and execution",
-        "Combined PyQt5 and RViz with robot execution and welder voltage, wire-feed and trigger commands. The interface brings geometry selection, motion visualization and coordinated hardware operation into one workflow."
+        "Execution",
+        "Integrated PyQt5 and RViz with the UR10e and welder voltage, wire feed and trigger commands. Later connected infrared monitoring to travel speed and arc voltage feedback."
       ]
     ],
-    "outcome": "Integrated CAD-to-robot execution with trajectory diagnostics and tool-position logging. Later work added infrared monitoring and process feedback for travel-speed and arc-voltage regulation.",
+    "outcome": "Demonstrated an integrated CAD to robot welding workflow with motion diagnostics and tool position logging. The infrared feedback work was a later extension.",
     "steps": [
       "Register the part",
       "Sequence seams",
@@ -381,8 +369,8 @@
         ]
       ]
     },
-    "challengeTitle": "Overview",
-    "outcomeTitle": "Results",
+    "challengeTitle": "Problem & goal",
+    "outcomeTitle": "Implementation & results",
     "methodReferences": [
       [
         "Kabsch alignment · SciPy documentation",
@@ -412,7 +400,7 @@
     "role": "Robotics Engineer",
     "date": "Jun 2021 – Jun 2023",
     "status": "Industry experience",
-    "summary": "Modeling, feedback control and hardware integration for interactive robots at MIKO.",
+    "summary": "Developed feedback control and sensor integration for expressive, balancing and interactive robot prototypes at MIKO.",
     "stack": [
       "System identification",
       "Robust feedback control",
@@ -421,22 +409,22 @@
       "Audio DoA"
     ],
     "visual": "miko",
-    "challenge": "Robotics engineering work spanning expressive head articulation, self-balancing mobility and audio-directed orientation. Development connected mechanism modeling and feedback control with sensor integration and physical prototype testing.",
+    "challenge": "Interactive robots need repeatable motion and stable responses despite physical mechanisms and noisy sensor inputs. At MIKO, I worked on head articulation, a self balancing mobile platform and speaker directed orientation.",
     "contributions": [
       [
-        "Articulation control",
-        "Used measured mechanism responses to inform dynamic models and robust controller design for a head-motion manipulator. Developed motion-planning and control software for expressive joint movement."
+        "Head motion",
+        "Measured mechanism responses, modeled the head articulation system and developed motion planning and robust feedback control for expressive joint movement."
       ],
       [
-        "Self-balancing hardware",
-        "Integrated the sensor suite of a self-balancing robot and tuned feedback controllers for balance regulation. Evaluated stability and motion on the physical platform to connect model-based design with hardware behavior."
+        "Balance",
+        "Integrated sensors on a self balancing robot, tuned feedback controllers and evaluated stability and movement on the physical prototype."
       ],
       [
-        "Interactive orientation",
-        "Mapped audio direction-of-arrival estimates to yaw-axis targets so the robot could orient toward an active speaker. Added remote-control functionality for the mobile platform."
+        "Interaction",
+        "Converted audio direction of arrival estimates into yaw targets so the robot could turn toward a speaker, and added remote control functionality."
       ]
     ],
-    "outcome": "Developed and evaluated motion-control functionality through system modeling, sensor integration and hardware testing. The linked demonstration shows a prototype from this work.",
+    "outcome": "Tested motion and interaction functions on physical prototypes. The linked demonstration shows a prototype from this work.",
     "steps": [
       "Identify dynamics",
       "Design controller",
@@ -456,8 +444,8 @@
       ]
     ],
     "sourceNote": "The demonstration shows a self-balancing prototype, not a specific commercial MIKO product.",
-    "challengeTitle": "Overview",
-    "outcomeTitle": "Results",
+    "challengeTitle": "Problem & goal",
+    "outcomeTitle": "Implementation & results",
     "methodReferences": [
       [
         "System identification · MathWorks overview",
@@ -478,7 +466,7 @@
     "role": "M.Tech. · Systems and Control",
     "date": "Aug 2020 – Apr 2021",
     "status": "Simulation & controller comparison",
-    "summary": "Robust longitudinal and lateral control for a simulated three-vehicle platoon.",
+    "summary": "Compared robust spacing and path tracking controllers for a simulated leader and two follower vehicles.",
     "stack": [
       "MATLAB / Simulink",
       "Sliding Mode Control",
@@ -489,22 +477,22 @@
     "image": "platoon-lateral.webp",
     "imageAlt": "Master's thesis plot of lateral tracking error using super-twisting control",
     "imageCaption": "Lateral tracking error with super-twisting control, reproduced from the master's thesis.",
-    "challenge": "A master’s thesis comparing longitudinal spacing and lateral tracking controllers for a leader–two-follower vehicle platoon. The simulation study examines how nonlinear control choices affect tracking accuracy, convergence and control effort.",
+    "challenge": "A vehicle platoon must preserve longitudinal spacing and follow the leader’s path without excessive control effort. My master’s thesis compared nonlinear controllers on a three vehicle simulation to examine tracking, convergence and actuation cost.",
     "contributions": [
       [
-        "Dynamics and estimation",
-        "Modeled the three-vehicle system in MATLAB/Simulink using nonlinear bicycle dynamics at a reference speed of 8 m/s. Implemented a Luenberger observer to estimate yaw rate from lateral velocity."
+        "System model",
+        "Modeled the platoon with nonlinear bicycle dynamics in MATLAB/Simulink at a reference speed of 8 m/s. Used a Luenberger observer to estimate yaw rate from lateral velocity."
       ],
       [
-        "Controller development",
-        "Compared PID, conventional sliding-mode control, the thesis’s power-rate reaching-law formulation (PREL), and second-order super-twisting control. Evaluated both longitudinal spacing and lateral path-following behavior."
+        "Controller comparison",
+        "Implemented PID, conventional sliding mode, the thesis’s power rate exponential reaching law (PREL), and second order super twisting for longitudinal and lateral control."
       ],
       [
-        "Performance comparison",
-        "Compared integral absolute and squared tracking errors, their time-weighted forms, and control-effort measures. This distinguishes accurate tracking from solutions that require greater actuation effort."
+        "Evaluation",
+        "Compared absolute, squared and time weighted tracking errors together with control effort, so lower tracking error could be assessed alongside actuation demand."
       ]
     ],
-    "outcome": "PREL achieved the lowest error indices in the documented simulation. Super-twisting provided lateral convergence without overshoot and the lowest longitudinal control-energy metric. Related publication: ACODS 2022.",
+    "outcome": "PREL had the lowest error indices in the documented simulations. Super twisting gave lateral convergence without overshoot and the lowest longitudinal control energy metric. Related work appeared at ACODS 2022.",
     "gallery": [
       [
         "platoon-longitudinal.webp",
@@ -519,8 +507,8 @@
       ]
     ],
     "sourceNote": "Figures and controller comparisons are from the master’s thesis.",
-    "challengeTitle": "Overview",
-    "outcomeTitle": "Results",
+    "challengeTitle": "Problem & goal",
+    "outcomeTitle": "Implementation & results",
     "methodReferences": [
       [
         "Iyer et al. · Sliding Mode Control Using Power Rate Exponential Reaching Law for Urban Platooning",
@@ -541,7 +529,7 @@
     "role": "B.Tech. · Instrumentation and Control",
     "date": "Jan – May 2019",
     "status": "Three-robot hardware demonstration",
-    "summary": "Particle-swarm light-source search implemented on three LEGO NXT robots.",
+    "summary": "Used Particle Swarm Optimization to guide three LEGO NXT robots toward a light source in a physical arena.",
     "stack": [
       "Particle Swarm Optimization",
       "Python / MATLAB",
@@ -552,22 +540,22 @@
     "image": "pso-robot.webp",
     "imageAlt": "LEGO NXT robot carrying an ArUco tracking marker",
     "imageCaption": "LEGO NXT platform with an ArUco marker for overhead tracking.",
-    "challenge": "A physical light-source search experiment using three LEGO NXT robots and Particle Swarm Optimization. Shared light observations guide collective search, supported by camera-based localization and centralized motion commands.",
+    "challenge": "A team searching for a light source needs to combine each robot’s observations with information shared by the group. This project tested whether a particle swarm search could drive real robots toward the brightest area.",
     "contributions": [
       [
-        "Search algorithm",
-        "Developed the particle-swarm search in MATLAB and implemented the hardware workflow in Python. Each robot combines its best light observation with the best observation shared by the team."
+        "Search",
+        "Developed particle swarm updates in MATLAB and implemented the robot workflow in Python. Combined each robot’s best light reading with the team’s best reading to set new motion targets."
       ],
       [
-        "Localization and communication",
-        "Tracked robot positions using an overhead camera and ArUco markers. A centralized controller sends motion targets over Bluetooth, connecting optimization updates to physical robot movement."
+        "Localization",
+        "Tracked robot positions with an overhead camera and ArUco markers, then sent motion commands through a central Bluetooth controller."
       ],
       [
-        "Navigation and sensing",
-        "Integrated light sensing, waypoint following and ultrasonic obstacle avoidance. Hardware trials evaluated whether the robots could converge toward the brightest region while operating within the experimental arena."
+        "Hardware trials",
+        "Connected light sensing, waypoint following and ultrasonic obstacle avoidance on three LEGO NXT robots and evaluated convergence in the arena."
       ]
     ],
-    "outcome": "The robots converged toward the brightest region; one documented trial took 11 iterations. The related paper received a Best Paper Award at ICECA 2019.",
+    "outcome": "The robots converged toward the brightest region; one documented trial took 11 iterations. The related paper won a Best Paper Award at ICECA 2019.",
     "gallery": [
       [
         "pso-start.webp",
@@ -587,8 +575,8 @@
       ]
     ],
     "sourceNote": "Robot photographs and experimental results are from the bachelor’s thesis.",
-    "challengeTitle": "Overview",
-    "outcomeTitle": "Results",
+    "challengeTitle": "Problem & goal",
+    "outcomeTitle": "Implementation & results",
     "methodReferences": [
       [
         "Kennedy & Eberhart · Particle Swarm Optimization",
@@ -609,7 +597,7 @@
     "role": "Summer intern · Joint project with Alden J. Joseph",
     "date": "Jun – Jul 2017",
     "status": "MATLAB simulation + hardware navigation",
-    "summary": "Joint robot-pose and landmark estimation in MATLAB, with a separate embedded navigation exercise.",
+    "summary": "Studied EKF based robot and landmark estimation in MATLAB and separately programmed obstacle avoiding navigation on a SPARK-V robot.",
     "stack": [
       "EKF-SLAM",
       "Covariance propagation",
@@ -620,22 +608,22 @@
     "image": "slam-map.webp",
     "imageAlt": "MATLAB EKF-SLAM simulation showing a robot path and landmark estimates",
     "imageCaption": "EKF-SLAM simulation from the internship report, showing a waypoint route and estimated landmarks.",
-    "challenge": "An internship project investigating joint robot-pose and landmark estimation through EKF-SLAM simulation. A separate embedded implementation explores obstacle avoidance and encoder-based motion feedback on a SPARK-V robot.",
+    "challenge": "A moving robot must estimate where it is while identifying landmarks from noisy measurements. During an internship, I studied joint estimation in a MATLAB EKF-SLAM simulator and separately implemented encoder assisted navigation on embedded hardware.",
     "contributions": [
       [
-        "Probabilistic estimation",
-        "Adapted a MATLAB EKF-SLAM simulator to estimate robot pose and landmark positions together. Implemented prediction and measurement updates with Jacobian-based uncertainty propagation."
+        "EKF-SLAM",
+        "Adapted a credited MATLAB simulator to estimate robot pose and landmark positions with prediction and measurement updates and Jacobian based covariance propagation."
       ],
       [
-        "Landmark association",
-        "Applied uncertainty-aware nearest-neighbor matching with Mahalanobis gating to associate range–bearing measurements with landmarks. Examined how revisiting landmarks changes uncertainty in the estimated map."
+        "Data association",
+        "Matched range and bearing observations to landmarks using Mahalanobis gating, then examined how repeated observations changed map uncertainty."
       ],
       [
         "Embedded navigation",
-        "Extended simulated reactive steering and separately programmed ultrasonic obstacle avoidance and encoder feedback in Embedded C. The SPARK-V implementation used its ATmega16 controller for room-traversal experiments."
+        "Programmed ultrasonic obstacle avoidance and encoder feedback in Embedded C for a SPARK-V robot with an ATmega16 controller."
       ]
     ],
-    "outcome": "Repeated landmark observations reduced map uncertainty in simulation. The SPARK-V robot separately demonstrated room traversal with obstacle avoidance.",
+    "outcome": "Reobserving landmarks reduced estimated map uncertainty in simulation. The separate SPARK-V implementation demonstrated room traversal with obstacle avoidance.",
     "gallery": [
       [
         "spark-robot.webp",
@@ -650,8 +638,8 @@
       ]
     ],
     "sourceNote": "Joint internship project with Alden J. Joseph. The MATLAB study adapted EKF-SLAM code credited to Tim Bailey and Juan Nieto in the report.",
-    "challengeTitle": "Overview",
-    "outcomeTitle": "Results",
+    "challengeTitle": "Problem & goal",
+    "outcomeTitle": "Implementation & results",
     "methodReferences": [
       [
         "MathWorks · Extended Kalman Filter SLAM",
@@ -672,7 +660,7 @@
     "role": "Graduate project",
     "date": "Sep – Dec 2019",
     "status": "Artificial & biological tissue experiments",
-    "summary": "Ultrasound needle tracking using robust image processing and Kalman filtering.",
+    "summary": "Combined ultrasound image processing and Kalman filtering to track a needle tip against electromagnetic reference measurements.",
     "stack": [
       "LabVIEW",
       "RANSAC",
@@ -681,22 +669,22 @@
       "Experimental evaluation"
     ],
     "visual": "needle",
-    "challenge": "An ultrasound needle-tracking pipeline combining robust image processing with temporal state estimation. Developed in LabVIEW, the system estimates needle-tip position under noisy image conditions and compares performance against an independent electromagnetic reference.",
+    "challenge": "Ultrasound speckle and unrelated edges can make needle tip localization unstable from frame to frame. I built a LabVIEW tracking pipeline and compared its position estimates with an independent electromagnetic reference.",
     "contributions": [
       [
-        "Needle-feature extraction",
-        "Built background-subtraction and edge-detection stages to isolate candidate needle features within a region of interest. Applied Random Sample Consensus line fitting to reduce the influence of speckle and unrelated image edges."
+        "Image measurements",
+        "Used background subtraction and edge detection in a region of interest, then fit a needle line with RANSAC to reject unrelated image edges."
       ],
       [
-        "Temporal estimation",
-        "Integrated a four-state Kalman filter to combine predicted state with image measurements across frames. This reduces reliance on individual noisy observations when estimating needle-tip position."
+        "State estimation",
+        "Used a four state Kalman filter to combine predicted motion with image measurements across frames."
       ],
       [
-        "Experimental validation",
-        "Evaluated tracking in artificial and biological tissue at insertion depths up to 6.5 cm. Used an NDI-Aurora electromagnetic reference to compare the combined estimator against vision-only tracking."
+        "Validation",
+        "Tested insertion in artificial and biological tissue to depths of 6.5 cm, comparing the combined estimator with vision only tracking using an NDI Aurora reference."
       ]
     ],
-    "outcome": "Position RMSE fell from 0.79 to 0.03 cm in artificial tissue and from 0.84 to 0.21 cm in biological tissue versus vision-only tracking, under the reported experimental conditions.",
+    "outcome": "Position RMSE decreased from 0.79 to 0.03 cm in artificial tissue and from 0.84 to 0.21 cm in biological tissue compared with vision only tracking under the reported experimental conditions.",
     "steps": [
       "Ultrasound image",
       "Extract needle features",
@@ -710,8 +698,8 @@
       ]
     ],
     "sourceNote": "",
-    "challengeTitle": "Overview",
-    "outcomeTitle": "Results",
+    "challengeTitle": "Problem & goal",
+    "outcomeTitle": "Implementation & results",
     "methodReferences": [
       [
         "Fischler & Bolles · Random Sample Consensus",
