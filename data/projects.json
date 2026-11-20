@@ -12,7 +12,7 @@
     "stack": [
       "C++ / Python",
       "ROS 2",
-      "AMCL / EKF odometry",
+      "SLAM / platform odometry",
       "WFD / Hungarian",
       "A* / MPPI / DWB",
       "PyTorch / CUDA"
@@ -25,7 +25,7 @@
       ],
       [
         "Localization and safe navigation",
-        "Used wheel encoder odometry fused with IMU measurements by an EKF for local motion estimates. AMCL estimates pose from LiDAR against an existing map; SLAM Toolbox supports map building in the exploration workflow. Added a costmap layer to reject high cost cells and a DWB critic to slow forward motion near obstacles."
+        "Integrated SLAM Toolbox scan matching with Jackal’s platform odometry to estimate robot pose. Built a separate exploration occupancy grid from timestamped front-facing LiDAR observations, and added a costmap layer and DWB critic to reject high-cost routes and reduce forward speed near obstacles."
       ],
       [
         "Cooperative exploration",
@@ -41,7 +41,7 @@
     "sourceNote": "",
     "shortTitle": "Multi-robot exploration and search",
     "image": "exploration-architecture.svg",
-    "imageAlt": "Cooperative exploration workflow: AMCL provides localization within an existing map, supported by EKF fusion of wheel encoder odometry and IMU measurements. Shared LiDAR mapping, wavefront frontier detection, Hungarian task allocation and A* planning with MPPI control support exploration. Camera-based target detection runs alongside exploration.",
+    "imageAlt": "Cooperative exploration workflow showing localization, shared LiDAR mapping, wavefront frontier detection, Hungarian task allocation and A* planning with MPPI control. Camera-based target detection runs alongside exploration.",
     "imageCaption": "Scaling exploration to a robot team: shared observations update the map, Hungarian assignment distributes frontier tasks, and each robot executes its own navigation goals.",
     "challengeTitle": "Problem & goal",
     "outcomeTitle": "Implementation & results",
