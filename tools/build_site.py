@@ -7,7 +7,6 @@ from html import escape as e
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = json.loads((ROOT / 'data/projects.json').read_text())
-PROFILE = json.loads((ROOT / 'data/profile.json').read_text())
 STYLE_VERSION = sha256((ROOT / 'assets/site.css').read_bytes()).hexdigest()[:12]
 RESUME_PATH = 'assets/documents/Ajay_Iyer_Resume.pdf'
 RESUME_URL = RESUME_PATH + '?v=' + sha256((ROOT / RESUME_PATH).read_bytes()).hexdigest()[:12]
@@ -88,9 +87,14 @@ def homepage():
 <p>I’m a Ph.D. student in Mechanical Engineering at Texas A&amp;M University, working with Dr. Srikanth Saripalli. I’m interested in how robots use what they sense to decide where to go and how to move.</p>
 <p>I recently started working on <a href="projects/frontier-exploration.html">cooperative robot exploration</a>: how a team can efficiently explore an unknown outdoor environment by assigning tasks according to each robot’s capabilities. My work so far includes frontier exploration on a physical Jackal and a multi-robot simulation with a Husky and two Jackals.</p>
 <p>Before this, I worked on <a href="projects/autonomous-vehicles.html">perception and planning for rural roads</a> and <a href="projects/welding-automation.html">robotic welding</a> at Texas A&amp;M. Previously, I was a <a href="projects/miko-robotics.html">Robotics Engineer at MIKO</a>, where I developed motion control for expressive and self-balancing robot prototypes. I earned my master’s in Systems and Control from IIT Roorkee and my bachelor’s in Instrumentation and Control from NIT Tiruchirappalli.</p>
-<div class="profile-links"><a href="assets/documents/Ajay_Iyer_Resume.pdf">Resume</a><a href="mailto:ajayiyer2397@tamu.edu">Email</a><a href="https://scholar.google.com/citations?user=XCSeehYAAAAJ&amp;hl=en">Google Scholar</a><a href="https://www.linkedin.com/in/ajay-iyer-792299116/">LinkedIn</a></div><p class="opportunity">__OPPORTUNITY__</p></div>
+<div class="profile-links"><a href="assets/documents/Ajay_Iyer_Resume.pdf">Resume</a><a href="mailto:ajayiyer2397@tamu.edu">Email</a><a href="https://scholar.google.com/citations?user=XCSeehYAAAAJ&amp;hl=en">Google Scholar</a><a href="https://www.linkedin.com/in/ajay-iyer-792299116/">LinkedIn</a></div></div>
 <figure class="profile-photo"><img src="assets/images/ajay-iyer.webp" width="1000" height="750" alt="Ajay Ganesan Iyer" fetchpriority="high"><figcaption>College Station, Texas</figcaption></figure></section>
-<div class="container"><aside class="recognition-note" aria-label="Research recognition"><span class="recognition-label">Recognition</span><p><strong>Best Paper Award, IEEE ICECA 2019.</strong> Our work on <a href="projects/robot-swarm.html">cooperative search with three robots</a> brought Particle Swarm Optimization onto physical hardware. Related control research was published at <a href="projects/vehicle-platooning.html">ACODS 2022</a>.</p></aside></div>
+<div class="container">
+  <aside class="recognition-note" aria-label="Research recognition">
+    <span class="recognition-label">Recognition</span>
+    <p><strong>Best Paper Award · IEEE ICECA 2019.</strong> I co-authored the paper based on our undergraduate research at NIT Tiruchirappalli. We implemented particle swarm optimization on three LEGO NXT robots that shared light readings to find the brightest spot in an arena. <a href="projects/robot-swarm.html">See the robot swarm project</a>.</p>
+  </aside>
+</div>
 <section class="section container" id="portfolio"><div class="section-heading"><h2>Research &amp; engineering projects</h2><p>Implemented systems, hardware demonstrations and simulation studies.</p></div>
 <div class="project-filters" role="group" aria-label="Filter projects"><button class="filter" data-filter="all" aria-pressed="true">All projects</button><button class="filter" data-filter="autonomy" aria-pressed="false">Autonomy</button><button class="filter" data-filter="automation" aria-pressed="false">Automation</button><button class="filter" data-filter="controls" aria-pressed="false">Control &amp; estimation</button></div><p id="filter-status" class="filter-status" role="status" aria-live="polite">9 projects shown</p><div class="project-list">'''
     order=['frontier-exploration','autonomous-vehicles','welding-automation','miko-robotics','vehicle-platooning','robot-swarm','vehicle-mpc','needle-tracking','ekf-slam']
@@ -110,8 +114,7 @@ def homepage():
 <article class="publication"><div class="year">2019</div><div><p class="paper-award">Best Paper Award · IEEE ICECA 2019</p><h3>Particle Swarm Optimization Algorithm for Finding the Brightest Spot in an Arena</h3><p>M. Adharsh, <strong>Ajay G. Iyer</strong>, Abhinav G. Athrey, Ashwin V., Venkatesh V. G.</p><p>3rd IEEE International Conference on Electronics, Communication and Aerospace Technology (ICECA)</p><a class="text-link" href="projects/robot-swarm.html">Robot setup and experiments </a></div></article><article class="publication"><div class="year">2022</div><div><h3>Sliding Mode Control Using Power Rate Exponential Reaching Law for Urban Platooning</h3><p><strong>A. G. Iyer</strong>, J. Samantaray, S. Ghosh, A. Dey, S. Chakrabarty</p><p>7th International Conference on Advances in Control and Optimization of Dynamical Systems (ACODS)</p><a class="text-link" href="projects/vehicle-platooning.html">Related thesis and results </a></div></article>
 </div></section>
 '''
-    body+='''<section class="section contact" id="contact"><div class="container"><h2>Get in touch</h2><p>I’m seeking 2027 internships in robotics software, autonomous navigation, perception and control.</p><div class="contact-links"><a href="mailto:ajayiyer2397@tamu.edu">ajayiyer2397@tamu.edu</a><a href="mailto:ajay.iyer79@gmail.com">ajay.iyer79@gmail.com</a><a href="assets/documents/Ajay_Iyer_Resume.pdf">Download resume</a></div></div></section></main>'''
-    body=body.replace('__OPPORTUNITY__',e(PROFILE['opportunity']))
+    body+='''<section class="section contact" id="contact"><div class="container"><h2>Get in touch</h2><div class="contact-links"><a href="mailto:ajayiyer2397@tamu.edu">ajayiyer2397@tamu.edu</a><a href="mailto:ajay.iyer79@gmail.com">ajay.iyer79@gmail.com</a><a href="assets/documents/Ajay_Iyer_Resume.pdf">Download resume</a></div></div></section></main>'''
     (ROOT/'index.html').write_text((body+footer()).replace(RESUME_PATH,RESUME_URL))
 
 

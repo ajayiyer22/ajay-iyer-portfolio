@@ -37,13 +37,12 @@ p { margin-bottom: 14px; }
 .profile { display: grid; grid-template-columns: minmax(0,1fr) 230px; gap: 56px; align-items: start; padding-top: 48px; padding-bottom: 28px; }
 .profile-role { font-size: .875rem; color: var(--green); font-weight: 500; margin-bottom: 8px; }
 .profile-affiliation { font-size: 1rem; color: var(--muted); line-height: 1.5; margin-bottom: 22px; }
-.profile-copy > p:not(.profile-role):not(.profile-affiliation):not(.opportunity) { max-width: 720px; }
+.profile-copy > p:not(.profile-role):not(.profile-affiliation) { max-width: 720px; }
 .profile-photo { padding-top: 28px; }
 .profile-photo img { width: 230px; height: 260px; object-fit: cover; object-position: 28% 65%; border-radius: 4px; }
 .profile-photo figcaption { color: var(--muted); font-size: .875rem; margin-top: 8px; }
 .profile-links { display: flex; flex-wrap: wrap; gap: 20px; margin: 22px 0 14px; font-size: .9375rem; }
 .profile-links a { font-weight: 500; }
-.opportunity { color: var(--muted); font-size: .875rem; margin-bottom: 0; }
 .recognition-note { display: grid; grid-template-columns: 110px minmax(0,1fr); gap: 20px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: .9375rem; }
 .recognition-label { color: var(--accent); font-weight: 600; }
 .recognition-note p { margin: 0; }
