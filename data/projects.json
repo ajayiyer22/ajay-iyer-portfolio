@@ -529,7 +529,7 @@
     "role": "B.Tech. · Instrumentation and Control",
     "date": "Jan – May 2019",
     "status": "Three-robot hardware demonstration",
-    "summary": "Used Particle Swarm Optimization to guide three LEGO NXT robots toward a light source in a physical arena.",
+    "summary": "Built a three-robot light-source search system using Particle Swarm Optimization. The related paper received a Best Paper Award at IEEE ICECA 2019.",
     "stack": [
       "Particle Swarm Optimization",
       "Python / MATLAB",
@@ -586,7 +586,8 @@
         "OpenCV · ArUco fiducial markers",
         "https://docs.opencv.org/3.4.0/d5/dae/tutorial_aruco_detection.html"
       ]
-    ]
+    ],
+    "recognition": "Best Paper Award · IEEE ICECA 2019"
   },
   {
     "slug": "ekf-slam",
